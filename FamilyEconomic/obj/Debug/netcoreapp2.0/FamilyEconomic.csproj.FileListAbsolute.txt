@@ -1,0 +1,11 @@
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\bin\Debug\netcoreapp2.0\FamilyEconomic.deps.json
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\bin\Debug\netcoreapp2.0\FamilyEconomic.runtimeconfig.json
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\bin\Debug\netcoreapp2.0\FamilyEconomic.runtimeconfig.dev.json
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\bin\Debug\netcoreapp2.0\FamilyEconomic.dll
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\bin\Debug\netcoreapp2.0\FamilyEconomic.pdb
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\obj\Debug\netcoreapp2.0\FamilyEconomic.csprojResolveAssemblyReference.cache
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\obj\Debug\netcoreapp2.0\FamilyEconomic.csproj.CoreCompileInputs.cache
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\obj\Debug\netcoreapp2.0\FamilyEconomic.AssemblyInfoInputs.cache
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\obj\Debug\netcoreapp2.0\FamilyEconomic.AssemblyInfo.cs
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\obj\Debug\netcoreapp2.0\FamilyEconomic.dll
+D:\MyProjects\FamilyEconomic\WebApp\FamilyEconomic\obj\Debug\netcoreapp2.0\FamilyEconomic.pdb
