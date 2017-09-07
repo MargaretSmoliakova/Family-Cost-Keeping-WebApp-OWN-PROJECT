@@ -1,0 +1,53 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test title</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        
+        
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body >
+    <divs class="w3-bar w3-light-grey w3-border w3-xlarge">
+        <a href="#" class="w3-bar-item w3-button w3-green"><i class="fa fa-home"></i></a>
+        <a href="#" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a>
+        <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+        <a href="#" class="w3-bar-item w3-button"><i class="fa fa-globe"></i></a>
+        <a href="#" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i></a>
+    </divs>
+
+    <div id="main" class="container body-content ">
+       
+        <hr />
+
+        <footer>
+            <p>&copy; 2017 - Family Budget</p>
+        </footer>
+
+    </div>
+
+    
+
+</body>
+</html>
+
