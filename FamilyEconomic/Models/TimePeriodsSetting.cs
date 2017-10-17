@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FamilyEconomic.Models
 {
-    public class TimePeriods
+    public class TimePeriodsSetting
     {
         public User User { get; set; }
         public int MonthStartDay { get; set; }

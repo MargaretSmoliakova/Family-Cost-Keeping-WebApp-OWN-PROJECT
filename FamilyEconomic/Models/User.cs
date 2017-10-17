@@ -13,10 +13,10 @@ namespace FamilyEconomic.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Mail { get; set; }
-        public IEnumerable<CashFlowEarning> Earnings { get; set; }
-        public IEnumerable<CashFlowCost> Costs { get; set; }
-        public IEnumerable<User> FriendUsers { get; set; }
+        public ICollection<CashFlowEarning> Earnings { get; set; }
+        public ICollection<CashFlowCost> Costs { get; set; }
+        public ICollection<User> FriendUsers { get; set; }
         public TimePeriods TimePeriods { get; set; }
-        public IEnumerable<Notification> Notification { get; set; }
+        public ICollection<Notification> Notification { get; set; }
     }
 }

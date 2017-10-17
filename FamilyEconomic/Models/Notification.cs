@@ -9,7 +9,7 @@ namespace FamilyEconomic.Models
     {
         public int NotificationId { get; set; }
         public CashFlowCost Cost { get; set; }
-        public DateTime Date { get; set; }
+        public IEnumerable<DateTime> DatesWhenNotify { get; set; }
         public string Comments { get; set; }
     }
 }
