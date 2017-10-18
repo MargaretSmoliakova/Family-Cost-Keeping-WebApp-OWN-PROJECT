@@ -12542,9 +12542,9 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\MyProjects\\FamilyEconomic\\WebApp\\FamilyEconomic\\FamilyEconomic.csproj",
-      "projectName": "FamilyEconomic",
-      "projectPath": "D:\\MyProjects\\FamilyEconomic\\WebApp\\FamilyEconomic\\FamilyEconomic.csproj",
+      "projectUniqueName": "D:\\MyProjects\\FamilyEconomic\\WebApp\\FamilyEconomic\\FamilyCostKeeping.csproj",
+      "projectName": "FamilyCostKeeping",
+      "projectPath": "D:\\MyProjects\\FamilyEconomic\\WebApp\\FamilyEconomic\\FamilyCostKeeping.csproj",
       "packagesPath": "C:\\Users\\margarita.smoliakova\\.nuget\\packages\\",
       "outputPath": "D:\\MyProjects\\FamilyEconomic\\WebApp\\FamilyEconomic\\obj\\",
       "projectStyle": "PackageReference",

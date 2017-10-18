@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "FamilyEconomic": {
+    "FamilyCostKeeping": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FamilyEconomic.Models
+namespace FamilyCostKeeping.Models
 {
-    public class CashFlowCost : CashFlow
+    public class Cost : CashFlow
     {
         public bool IsMonthly { get; set; }
     }

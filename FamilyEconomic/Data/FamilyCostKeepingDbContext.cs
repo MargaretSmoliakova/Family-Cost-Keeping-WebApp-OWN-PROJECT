@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using FamilyEconomic.Models;
+using FamilyCostKeeping.Models;
 
-namespace FamilyEconomic.Data
+namespace FamilyCostKeeping.Data
 {
-    public class FamilyEconomicDbContext : DbContext
+    public class FamilyCostKeepingDbContext : DbContext
     {
-        public FamilyEconomicDbContext(DbContextOptions<FamilyEconomicDbContext> options) : base(options)
+        public FamilyCostKeepingDbContext(DbContextOptions<FamilyCostKeepingDbContext> options) : base(options)
         { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<TimePeriodsSetting> TimePeriodSettings { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<CashFlowCost> Costs { get; set; }
-        public DbSet<CashFlowEarning> Earnings { get; set; }
+        public DbSet<Cost> Costs { get; set; }
+        public DbSet<Earning> Earnings { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FamilyEconomic.Models
+namespace FamilyCostKeeping.Models
 {
     public class User
     {
@@ -13,10 +13,10 @@ namespace FamilyEconomic.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Mail { get; set; }
-        public ICollection<CashFlowEarning> Earnings { get; set; }
-        public ICollection<CashFlowCost> Costs { get; set; }
+        public ICollection<Earning> Earnings { get; set; }
+        public ICollection<Cost> Costs { get; set; }
         public ICollection<User> FriendUsers { get; set; }
-        public TimePeriods TimePeriods { get; set; }
+        public TimePeriodsSetting TimePeriods { get; set; }
         public ICollection<Notification> Notification { get; set; }
     }
 }

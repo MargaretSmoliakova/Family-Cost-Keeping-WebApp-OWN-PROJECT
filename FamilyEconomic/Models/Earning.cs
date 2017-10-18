@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FamilyEconomic.Models
+namespace FamilyCostKeeping.Models
 {
-    public class CashFlowEarning : CashFlow
+    public class Earning : CashFlow
     {
                
     }
