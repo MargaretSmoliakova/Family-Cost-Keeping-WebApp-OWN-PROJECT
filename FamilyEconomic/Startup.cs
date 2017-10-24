@@ -19,7 +19,7 @@ namespace FamilyCostKeeping
         }
 
         public IConfiguration Configuration { get; }
-
+       
         public void ConfigureServices(IServiceCollection services)
         {            
             services.AddDbContext<FamilyCostKeepingDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

@@ -13,10 +13,10 @@ namespace FamilyCostKeeping.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Mail { get; set; }
+
         public ICollection<Earning> Earnings { get; set; }
-        public ICollection<Cost> Costs { get; set; }
-        public ICollection<User> FriendUsers { get; set; }
-        public TimePeriodsSetting TimePeriods { get; set; }
-        public ICollection<Notification> Notification { get; set; }
+        public ICollection<Cost> Costs { get; set; }        
+
+        public TimePeriodsSetting TimePeriodsSetting { get; set; }
     }
 }

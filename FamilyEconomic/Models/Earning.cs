@@ -7,6 +7,6 @@ namespace FamilyCostKeeping.Models
 {
     public class Earning : CashFlow
     {
-               
+        public int EarningId { get; set; }
     }
 }
