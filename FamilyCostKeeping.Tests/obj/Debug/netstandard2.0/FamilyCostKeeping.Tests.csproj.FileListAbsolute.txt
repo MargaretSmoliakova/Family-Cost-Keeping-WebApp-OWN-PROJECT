@@ -1,0 +1,9 @@
+D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping.Tests\bin\Debug\netstandard2.0\FamilyCostKeeping.Tests.deps.json
+D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping.Tests\bin\Debug\netstandard2.0\FamilyCostKeeping.Tests.dll
+D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping.Tests\bin\Debug\netstandard2.0\FamilyCostKeeping.Tests.pdb
+D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping.Tests\obj\Debug\netstandard2.0\FamilyCostKeeping.Tests.csprojResolveAssemblyReference.cache
+D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping.Tests\obj\Debug\netstandard2.0\FamilyCostKeeping.Tests.csproj.CoreCompileInputs.cache
+D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping.Tests\obj\Debug\netstandard2.0\FamilyCostKeeping.Tests.AssemblyInfoInputs.cache
+D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping.Tests\obj\Debug\netstandard2.0\FamilyCostKeeping.Tests.AssemblyInfo.cs
+D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping.Tests\obj\Debug\netstandard2.0\FamilyCostKeeping.Tests.dll
+D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping.Tests\obj\Debug\netstandard2.0\FamilyCostKeeping.Tests.pdb

@@ -12542,11 +12542,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\MyProjects\\FamilyEconomic\\WebApp\\FamilyEconomic\\FamilyCostKeeping.csproj",
+      "projectUniqueName": "D:\\MyProjects\\FamilyCostKeeping\\WebApp\\FamilyCostKeeping\\FamilyCostKeeping.csproj",
       "projectName": "FamilyCostKeeping",
-      "projectPath": "D:\\MyProjects\\FamilyEconomic\\WebApp\\FamilyEconomic\\FamilyCostKeeping.csproj",
+      "projectPath": "D:\\MyProjects\\FamilyCostKeeping\\WebApp\\FamilyCostKeeping\\FamilyCostKeeping.csproj",
       "packagesPath": "C:\\Users\\margarita.smoliakova\\.nuget\\packages\\",
-      "outputPath": "D:\\MyProjects\\FamilyEconomic\\WebApp\\FamilyEconomic\\obj\\",
+      "outputPath": "D:\\MyProjects\\FamilyCostKeeping\\WebApp\\FamilyCostKeeping\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
