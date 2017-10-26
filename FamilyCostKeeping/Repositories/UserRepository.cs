@@ -8,43 +8,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FamilyCostKeeping.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUsersRepository
     {
         private readonly FamilyCostKeepingDbContext _dbContext;
+        private DbSet<User> Users => _dbContext.Users;
 
-        private DbSet<User> Users
-        {
-            get
-            {
-                return _dbContext.Users;
-            }
-        }
 
-    public UserRepository(FamilyCostKeepingDbContext context)
-        {
-            _dbContext = context;
-        }
-
+        public UserRepository(FamilyCostKeepingDbContext context) => _dbContext = context;
+        
         public void Create(User entity)
         {
-            Users?.Add(entity);
+            Users.Add(entity);
             Save();
         }
 
         public void Delete(User entity)
         {
-            _dbContext.Users.Remove(entity);
+            Users.Remove(entity);
             Save();
         }
 
         public User GetById(int id)
         {
-            return _dbContext.Users.Select(u => u).Where(u => u.UserId == id).FirstOrDefault();
+            return Users.Select(u => u).Where(u => u.UserId == id).FirstOrDefault();
         }        
 
         public void Update(User entity)
         {
-            _dbContext.en.Users.Select(u => u).Where(u => u.UserId == entity.UserId).
+            Save();
         }
 
         private void Save()

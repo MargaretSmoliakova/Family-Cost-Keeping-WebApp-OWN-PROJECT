@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FamilyCostKeeping.Repositories
 {
-    interface IRepository<TEntity, in TKey> where TEntity : class
+    public interface IRepository<TEntity, in TKey> where TEntity : class
     {
         TEntity GetById(TKey id);
         void Create(TEntity entity);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FamilyCostKeeping.Repositories
 {
-    interface IUserRepository : IRepository<User, int>
+    public interface IUsersRepository : IRepository<User, int>
     {
         
     }
