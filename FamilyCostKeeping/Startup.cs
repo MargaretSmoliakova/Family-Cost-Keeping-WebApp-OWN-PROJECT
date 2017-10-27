@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FamilyCostKeeping.Data;
 using Microsoft.EntityFrameworkCore;
+using FamilyCostKeeping.Repositories;
 
 namespace FamilyCostKeeping
 {
@@ -23,7 +24,10 @@ namespace FamilyCostKeeping
         public void ConfigureServices(IServiceCollection services)
         {            
             services.AddDbContext<FamilyCostKeepingDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -13,7 +13,7 @@ namespace FamilyCostKeeping.Data
         { }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<TimePeriodsSetting> TimePeriodSettings { get; set; }
+        public DbSet<TimePeriodsSetting> TimePeriodsSettings { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cost> Costs { get; set; }
