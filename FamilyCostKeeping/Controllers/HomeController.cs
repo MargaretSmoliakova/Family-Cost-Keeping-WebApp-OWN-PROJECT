@@ -12,6 +12,7 @@ namespace FamilyCostKeeping.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["currentDate"] = DateTime.Now.ToShortDateString();
             return View();
         }        
     }
