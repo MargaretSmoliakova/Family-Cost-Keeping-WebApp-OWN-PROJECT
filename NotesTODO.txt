@@ -1,0 +1,5 @@
+FamilyCostKeeping (keeping ideas):
+
+- Logging section in appsettings.json (what is a full object and what is LogLevel)
+- TODO .gitignore
+- why Dispose pattern is necessary
