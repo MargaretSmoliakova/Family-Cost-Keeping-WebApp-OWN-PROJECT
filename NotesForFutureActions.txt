@@ -1,9 +1,9 @@
 FamilyCostKeeping (current state):
 
+- can I create code first EF so that I can return all connected objects with the entity;
 - create tests for current UserRepository
 - create base authorization and authentification;
 - correct UserServices methods in the area of current user (get UserId f.ex);
-- think how to get nested info from objects in a better way;
+- think how to get object's nested objects in a better way;
 - create connection between models and view's components;
-- think how to initialize Repositories on creation unirOfWork object by system;
-- can I create code first EF so that I can return all connected objects with the entity;
+- think how to initialize Repositories on creation of unirOfWork object by DI;
