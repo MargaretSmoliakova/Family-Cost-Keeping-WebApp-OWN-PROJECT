@@ -1,5 +1,6 @@
 FamilyCostKeeping (current state):
 
+- why my EF User's collection return null at any situation (correct the EF relationship) and read about lazy loading;
 - can I create code first EF so that I can return all connected objects with the entity;
 - create tests for current UserRepository
 - create base authorization and authentification;

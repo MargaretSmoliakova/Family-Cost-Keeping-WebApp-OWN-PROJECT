@@ -21,8 +21,8 @@ namespace FamilyCostKeeping.Models
         public double CurrentBalance { get; set; }
         public Currency PreferredCurrency { get; set; }
 
-        public ICollection<Earning> Earnings { get; set; }
-        public ICollection<Cost> Costs { get; set; }        
+        public virtual ICollection<Earning> Earnings { get; set; }
+        public virtual ICollection<Cost> Costs { get; set; }        
 
         public TimePeriodsSetting TimePeriodsSetting { get; set; }
     }
