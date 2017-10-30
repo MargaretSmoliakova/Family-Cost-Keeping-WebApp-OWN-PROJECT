@@ -23,21 +23,27 @@ namespace FamilyCostKeeping.Repositories
         public UnitOfWork(FamilyCostKeepingDbContext dbContext)
         {
             _dbContext = dbContext;
+            _userRepo = new BaseRepository<User>(_dbContext.Users);
+            _timePeriodsSettingRepo = new BaseRepository<TimePeriodsSetting>(_dbContext.TimePeriodsSettings);
+            _notificationRepo = new BaseRepository<Notification>(_dbContext.Notifications);
+            _earningRepo = new BaseRepository<Earning>(_dbContext.Earnings);
+            _costRepo = new BaseRepository<Cost>(_dbContext.Costs);
+            _categoryRepo = new BaseRepository<Category>(_dbContext.Categories);
         }
-        
-#region IUnitOfWork Implementation
 
-        public IBaseRepository<User> UserRepository => _userRepo = new BaseRepository<User>(_dbContext.Users);
+        #region IUnitOfWork Implementation
 
-        public IBaseRepository<TimePeriodsSetting> TimePeriodsSettingRepository => _timePeriodsSettingRepo = new BaseRepository<TimePeriodsSetting>(_dbContext.TimePeriodsSettings);
+        public IBaseRepository<User> UserRepository => _userRepo;
 
-        public IBaseRepository<Notification> NotificationRepository => _notificationRepo = new BaseRepository<Notification>(_dbContext.Notifications);
+        public IBaseRepository<TimePeriodsSetting> TimePeriodsSettingRepository => _timePeriodsSettingRepo;
 
-        public IBaseRepository<Earning> EarningRepository => _earningRepo = new BaseRepository<Earning>(_dbContext.Earnings);
+        public IBaseRepository<Notification> NotificationRepository => _notificationRepo;
 
-        public IBaseRepository<Cost> CostRepository => _costRepo = new BaseRepository<Cost>(_dbContext.Costs);
+        public IBaseRepository<Earning> EarningRepository => _earningRepo;
 
-        public IBaseRepository<Category> CategoryRepository => _categoryRepo = new BaseRepository<Category>(_dbContext.Categories);
+        public IBaseRepository<Cost> CostRepository => _costRepo;
+
+        public IBaseRepository<Category> CategoryRepository => _categoryRepo;
         
         public void Save() => _dbContext.SaveChanges();        
 

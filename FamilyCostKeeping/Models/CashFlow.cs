@@ -10,6 +10,7 @@ namespace FamilyCostKeeping.Models
         public string Name { get; set; }
         public double Amount { get; set; }
         public string Comment { get; set; }
+        public DateTime CreatedDateTime { get; set; }
 
         public int UserId { get; set; }
         public User User { get; set; }

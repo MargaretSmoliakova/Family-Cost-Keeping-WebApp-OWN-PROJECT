@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using FamilyCostKeeping.Data;
 using Microsoft.EntityFrameworkCore;
 using FamilyCostKeeping.Repositories;
+using FamilyCostKeeping.Services;
 
 namespace FamilyCostKeeping
 {
@@ -28,6 +29,7 @@ namespace FamilyCostKeeping
             services.AddMvc();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUserServices, UserServices>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

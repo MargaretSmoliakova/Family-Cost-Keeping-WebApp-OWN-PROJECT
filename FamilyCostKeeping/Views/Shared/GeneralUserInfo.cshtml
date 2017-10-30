@@ -1,10 +1,7 @@
-﻿
-@{
-    var date = ViewData["currentDate"];
-}
+﻿@model GeneralUserInfoViewModel
 
-<label>@date</label>
+<label>@Model.CurrentUtcDateTime.ToLocalTime().ToShortDateString()</label>
 <br />
-<label>(6 days left)</label>
+<label>@Model.DaysOfCurrentMonthLeft (days left)</label>
 <br />
-<label>156.93 BYN</label>
+<label>@Model.Balance @Model.PreferredCurrency</label>
