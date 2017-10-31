@@ -17,6 +17,6 @@ namespace FamilyCostKeeping.Data
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cost> Costs { get; set; }
-        public DbSet<Earning> Earnings { get; set; }        
+        public DbSet<Earning> Earnings { get; set; }
     }
 }

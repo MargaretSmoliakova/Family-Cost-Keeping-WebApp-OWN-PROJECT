@@ -16,6 +16,6 @@ namespace FamilyCostKeeping.Models
         public string Comments { get; set; }
 
         public int CostId { get; set; }
-        public Cost Cost { get; set; }
+        public virtual Cost Cost { get; set; }
     }
 }

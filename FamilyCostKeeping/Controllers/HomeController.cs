@@ -16,9 +16,9 @@ namespace FamilyCostKeeping.Controllers
         public IActionResult Index([FromServices] IUserServices userServices)
         {
             GeneralUserInfoViewModel generalUserInfo = new GeneralUserInfoViewModel();
-            generalUserInfo.DaysOfCurrentMonthLeft = userServices.GetDaysOfCurrentMonthLeft();
-            generalUserInfo.Balance = userServices.GetCurrentBalance();
-            generalUserInfo.PreferredCurrency = userServices.GetPreferredCurrency();
+            generalUserInfo.DaysOfCurrentMonthLeft = userServices.GetDaysOfCurrentMonthLeft(1);
+            generalUserInfo.Balance = userServices.GetCurrentBalance(1);
+            generalUserInfo.PreferredCurrency = userServices.GetPreferredCurrency(1);
 
             return View(generalUserInfo);
         }        

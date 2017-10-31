@@ -12,5 +12,11 @@ namespace FamilyCostKeeping.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EarningId { get; set; }
+
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
+
+        public int CategoryId { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

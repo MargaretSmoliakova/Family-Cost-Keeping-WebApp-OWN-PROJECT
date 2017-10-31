@@ -18,6 +18,14 @@ namespace FamilyCostKeeping.Data
                 context.Categories.Add(category);
                 context.SaveChanges();
 
+                var timePeriodsSetting = new TimePeriodsSetting
+                {
+                    MonthStartDay = 10,
+                    IsWeekendsEscapedInMonthlyRefreshing = true
+                };
+                context.TimePeriodsSettings.Add(timePeriodsSetting);
+                context.SaveChanges();
+
                 var users = new User[]
                     {
                         new User {
@@ -29,11 +37,7 @@ namespace FamilyCostKeeping.Data
                             Mail = "testmail@testmail.com",
                             CurrentBalance = 506.55,
                             PreferredCurrency = Currency.BYN,
-                            TimePeriodsSetting = new TimePeriodsSetting {
-                                UserId = 1,
-                                MonthStartDay = 10,
-                                IsWeekendsEscapedInMonthlyRefreshing = true
-                            },
+                            TimePeriodsSetting = context.TimePeriodsSettings.Where(t => t.TimePeriodsSettingId == 1).FirstOrDefault(),
                             Costs = new List<Cost> { new Cost {
                                 UserId = 1,
                                 Name = "TestCost",

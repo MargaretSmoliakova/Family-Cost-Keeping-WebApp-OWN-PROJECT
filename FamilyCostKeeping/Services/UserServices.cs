@@ -18,26 +18,29 @@ namespace FamilyCostKeeping.Services
             _unitOfWork = unitOfWork;
         }
 
-        public double GetCurrentBalance()
+        public double GetCurrentBalance(int userId)
         {
             return _unitOfWork.UserRepository
-                .Find(u => u.UserId == 1)
+                .Find(u => u.UserId == userId)
                 .FirstOrDefault()
                 .CurrentBalance;
         }
 
-        public int GetDaysOfCurrentMonthLeft()
+        public int GetDaysOfCurrentMonthLeft(int userId)
         {
-            return _unitOfWork.TimePeriodsSettingRepository
-                .Find(t => t.UserId == 1)
-                .FirstOrDefault()
-                .MonthStartDay;
+            var v = _unitOfWork.UserRepository
+                .Find(s => s.UserId == userId)
+                .FirstOrDefault();
+            var v1 = v.TimePeriodsSetting;
+            var v2 = v1.MonthStartDay;
+
+            return v2;             
         }
 
-        public Currency GetPreferredCurrency()
+        public Currency GetPreferredCurrency(int userId)
         {
             return _unitOfWork.UserRepository
-                .Find(u => u.UserId == 1)
+                .Find(u => u.UserId == userId)
                 .FirstOrDefault()
                 .PreferredCurrency;
         }
