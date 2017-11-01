@@ -17,14 +17,29 @@ namespace FamilyCostKeeping.Tests
         public void Can_Get_Days_Of_Current_Month_Left()
         {
             //Arrange
-            Mock<IUserServices> mock = new Mock<IUserServices>();
+            Mock<DbContext> mockContext = new Mock<DbContext>();
 
+            Mock<IUnitOfWork> mock = new Mock<IUnitOfWork>(mockContext);
+            mock.Setup(m => m.UserRepository).Returns(new List<User> { });
+                new User
+                {
+                    UserId = 1,
+                    TimePeriodsSetting = new TimePeriodsSetting
+                        {
+                            MonthStartDay = 31,
+                            IsWeekendsEscapedInMonthlyRefreshing = true
+                        }
+                }                
+            });
+            
 
+            IUserServices userServices = new UserServices(mock.Object);
+            
             //Act
-            var rr = mock.Object.GetDaysOfCurrentMonthLeft(1);
+            var rr = userServices.GetDaysOfCurrentMonthLeft(1);
 
             //Assert
-            Assert.NotNull(rr);
+            Assert.True(rr == 30);
         }    
     }
 }
