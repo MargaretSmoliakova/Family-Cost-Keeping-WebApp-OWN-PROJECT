@@ -8,9 +8,11 @@ using FamilyCostKeeping.Models;
 
 namespace FamilyCostKeeping.Services
 {
+    // TODO think how to get current principal information to replace 1 number and do I actually need this linq
     public class UserServices : IUserServices
     {
         private readonly IUnitOfWork _unitOfWork;
+
 
 
         public UserServices([FromServices] IUnitOfWork unitOfWork)
@@ -18,18 +20,18 @@ namespace FamilyCostKeeping.Services
             _unitOfWork = unitOfWork;
         }
 
-        public double GetCurrentBalance(int userId)
+        public double GetCurrentBalance()
         {
             return _unitOfWork.UserRepository
-                .Find(u => u.UserId == userId)
+                .Find(u => u.UserId == 1)
                 .FirstOrDefault()
                 .CurrentBalance;
         }
 
-        public int GetDaysOfCurrentMonthLeft(int userId)
+        public int GetDaysOfCurrentMonthLeft()
         {
             var v = _unitOfWork.UserRepository
-                .Find(s => s.UserId == userId)
+                .Find(s => s.UserId == 1)
                 .FirstOrDefault();
             var v1 = v.TimePeriodsSetting;
             var v2 = v1.MonthStartDay;
@@ -37,12 +39,21 @@ namespace FamilyCostKeeping.Services
             return v2;             
         }
 
-        public Currency GetPreferredCurrency(int userId)
+        public Currency GetPreferredCurrency()
         {
             return _unitOfWork.UserRepository
-                .Find(u => u.UserId == userId)
+                .Find(u => u.UserId == 1)
                 .FirstOrDefault()
                 .PreferredCurrency;
+        }
+
+
+
+        private int GetCurrentUserId()
+        {
+            int userId = 0;
+
+            return userId;
         }
     }
 }

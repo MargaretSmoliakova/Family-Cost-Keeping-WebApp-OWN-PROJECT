@@ -1,11 +1,7 @@
 FamilyCostKeeping (current state):
 
-- why my EF code first is not correct???????
-- write appropriate UnitTest for UserServices.GetDaysOfCurrentMonthLeft;
-- why my EF User's collection return null at any situation (correct the EF relationship) and read about lazy loading;
-- can I create code first EF so that I can return all connected objects with the entity;
-- create tests for current UserRepository
-- create base authorization and authentification;
+- why my EF code first is not correct (regarding related objects)???????
+- create base authorization and authentification so that it won't be possible to auth. to this page without userId in the db;
 - correct UserServices methods in the area of current user (get UserId f.ex);
 - think how to get object's nested objects in a better way;
 - create connection between models and view's components;

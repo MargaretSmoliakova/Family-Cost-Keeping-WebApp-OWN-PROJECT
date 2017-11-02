@@ -10,8 +10,8 @@ namespace FamilyCostKeeping.Services
 {
     public interface IUserServices
     {
-        int GetDaysOfCurrentMonthLeft(int userId);
-        double GetCurrentBalance(int userId);
-        Currency GetPreferredCurrency(int userId);
+        int GetDaysOfCurrentMonthLeft();
+        double GetCurrentBalance();
+        Currency GetPreferredCurrency();
     }
 }
