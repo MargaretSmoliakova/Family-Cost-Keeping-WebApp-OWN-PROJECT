@@ -18,7 +18,6 @@ namespace FamilyCostKeeping.Services
 
         public UserServices([FromServices] IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
         
-
         public double GetCurrentBalance() => 
             _unitOfWork.UserRepository
             .Find(u => u.UserId == GetCurrentUserId())

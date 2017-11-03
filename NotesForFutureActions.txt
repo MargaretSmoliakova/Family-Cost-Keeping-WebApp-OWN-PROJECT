@@ -1,6 +1,6 @@
 FamilyCostKeeping (current state):
 
-- create base authorization and do LogInName && Password together unique;
+- create base Signing in and do LogInName && Password together unique;
 
 - correct GetDaysOfCurrentMonthLeft method of the UserServices
 - why my EF code first is not correct (regarding related objects)???????
