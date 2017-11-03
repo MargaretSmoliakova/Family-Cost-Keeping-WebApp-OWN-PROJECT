@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FamilyCostKeeping.Models;
+using FamilyCostKeeping.Models.Requests;
 
 namespace FamilyCostKeeping.Services
 {
@@ -35,6 +36,12 @@ namespace FamilyCostKeeping.Services
             .Find(u => u.UserId == GetCurrentUserId())
             .FirstOrDefault()
             .PreferredCurrency;
+
+        public bool TryAuthenticate(AuthenticationRequest authenticationRequest) =>
+            _unitOfWork.UserRepository
+            .Find(u => u.LogInName.Equals(authenticationRequest.LogInName) 
+                        && u.Password.Equals(authenticationRequest.Password))
+            .Any();        
             
 
 

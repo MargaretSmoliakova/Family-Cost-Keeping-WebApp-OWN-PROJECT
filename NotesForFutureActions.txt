@@ -1,9 +1,12 @@
 FamilyCostKeeping (current state):
 
-- create base authorization and authentification so that it won't be possible to authentication to this page without userId in the db;
+- create base authentication so that it won't be possible to do authentication to this page without userId in the db;
+- create base authorization and do LogInName && Password together unique
+
 - correct GetDaysOfCurrentMonthLeft method of the UserServices
 - why my EF code first is not correct (regarding related objects)???????
 - correct UserServices methods in the area of current user (get UserId f.ex);
 - think how to get object's nested objects in a better way;
-- create connection between models and view's components;
-- think how to initialize Repositories on creation of unirOfWork object by DI;
+
+- create connection between models and view's components (main page);
+

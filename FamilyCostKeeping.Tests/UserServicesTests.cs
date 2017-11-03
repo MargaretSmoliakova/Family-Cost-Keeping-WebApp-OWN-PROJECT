@@ -9,6 +9,7 @@ using FamilyCostKeeping.Data;
 using Microsoft.EntityFrameworkCore;
 using FamilyCostKeeping.Services;
 using System.Linq.Expressions;
+using FamilyCostKeeping.Models.Requests;
 
 namespace FamilyCostKeeping.Tests
 {
@@ -42,54 +43,5 @@ namespace FamilyCostKeeping.Tests
             Assert.True(result == 31);
         }
 
-        [Fact]
-        public void Can_Get_Preferred_Currency()
-        {
-            //Arrange
-            Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(m => m.UserRepository.Find(It.IsAny<Expression<Func<User, bool>>>()))
-                .Returns(new List<User>
-                                    {
-                                        new User
-                                        {
-                                            UserId = 1,
-                                            PreferredCurrency = Currency.USD
-                                        }
-                                    }
-                );
-
-            IUserServices userServicesMock = new UserServices(unitOfWorkMock.Object);
-
-            //Act
-            var result = userServicesMock.GetPreferredCurrency();
-
-            //Assert
-            Assert.True(result == Currency.USD);
-        }
-
-        [Fact]
-        public void Can_Get_Current_Balance()
-        {
-            //Arrange
-            Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(m => m.UserRepository.Find(It.IsAny<Expression<Func<User, bool>>>()))
-                .Returns(new List<User>
-                                    {
-                                        new User
-                                        {
-                                            UserId = 1,
-                                            CurrentBalance = 569.85
-                                        }
-                                    }
-                );
-
-            IUserServices userServicesMock = new UserServices(unitOfWorkMock.Object);
-
-            //Act
-            var result = userServicesMock.GetCurrentBalance();
-
-            //Assert
-            Assert.Equal(result, 569.85);
-        }
     }
 }

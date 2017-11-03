@@ -14,7 +14,6 @@ D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\bin\Debug\netcoreapp2.0
 D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\bin\Debug\netcoreapp2.0\FamilyCostKeeping.runtimeconfig.dev.json
 D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\bin\Debug\netcoreapp2.0\FamilyCostKeeping.dll
 D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\bin\Debug\netcoreapp2.0\FamilyCostKeeping.pdb
-D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\obj\Debug\netcoreapp2.0\FamilyCostKeeping.csprojResolveAssemblyReference.cache
 D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\obj\Debug\netcoreapp2.0\FamilyCostKeeping.csproj.CoreCompileInputs.cache
 D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\obj\Debug\netcoreapp2.0\FamilyCostKeeping.AssemblyInfoInputs.cache
 D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\obj\Debug\netcoreapp2.0\FamilyCostKeeping.AssemblyInfo.cs

@@ -23,7 +23,7 @@ namespace FamilyCostKeeping.Data
                         new User {
                             FirstName = "TestFirstName",
                             LastName = "TestLastName",
-                            SignInName = "TestSignInName",
+                            LogInName = "TestLogInName",
                             Password = "TestPassword",
                             Created = DateTime.Now.ToLocalTime(),
                             Mail = "testmail@testmail.com",

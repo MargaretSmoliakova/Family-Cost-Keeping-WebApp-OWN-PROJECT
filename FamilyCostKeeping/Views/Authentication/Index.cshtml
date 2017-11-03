@@ -1,0 +1,45 @@
+﻿@model AuthenticationRequest
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Authentication</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/AuthenticationForm.css" />     
+</head>
+<body>    
+    <div class="container">
+        <h2>Family Cost Keeping</h2><br/>
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-danger center-block text-center">@TempData["message"]</div>
+        }
+        <hr/>
+        <form asp-action="Index" method="post">
+            <div class="form-group">
+                <label >User name:</label><br />
+                <input asp-for="LogInName" type="text" class="form-control" placeholder="User name"/><br />
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+            </div>
+            <div class="checkbox">
+                <label><input asp-for="RememberCredentials" type="checkbox" name="remember"> Remember me</label>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-danger">Submit</button>
+            <hr/>
+            <h6>* user name and password are case sensitive</h6>
+        </form>
+    </div>
+</body>
+</html>

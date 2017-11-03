@@ -1,4 +1,5 @@
 ﻿using FamilyCostKeeping.Models;
+using FamilyCostKeeping.Models.Requests;
 using FamilyCostKeeping.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,5 +14,6 @@ namespace FamilyCostKeeping.Services
         int GetDaysOfCurrentMonthLeft();
         double GetCurrentBalance();
         Currency GetPreferredCurrency();
+        bool TryAuthenticate(AuthenticationRequest authenticationRequest);
     }
 }
