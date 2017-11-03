@@ -9,3 +9,5 @@ FamilyCostKeeping (current state):
 
 - create connection between models and view's components (main page);
 - create cookies and remember for autofilling the authentication information;
+
+- add admin functions (with authentication)
