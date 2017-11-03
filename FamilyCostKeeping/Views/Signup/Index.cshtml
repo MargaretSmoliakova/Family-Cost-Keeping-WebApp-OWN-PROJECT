@@ -1,4 +1,4 @@
-﻿@model AuthenticationRequest
+﻿@model SignupRequest
 
 @{
     Layout = null;
@@ -19,13 +19,28 @@
 <body>    
     <div class="container">
         <h2>Family Cost Keeping</h2>
-        <a asp-controller="Signup">Sign Up</a>
+        <a asp-controller="Authentication">Authenticate</a>
         @if (TempData["message"] != null)
         {
-            <div class="alert alert-danger center-block text-center">@TempData["message"]</div>
-        }   
-        <hr/>
+            <div class="alert alert-success center-block text-center">@TempData["message"]</div>
+        }
+        <hr/>        
         <form asp-action="Index" method="post">
+            <div class="form-group">
+                <label>Name:</label>
+                <input asp-for="FirstName" type="text" class="form-control" placeholder="Name">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input asp-for="LastName" type="text" class="form-control" placeholder="Last Name">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Mail:</label>
+                <input asp-for="Mail" type="text" class="form-control" placeholder="email">
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label >Login:</label><br />
                 <input asp-for="LogInName" type="text" class="form-control" placeholder="Login"/>
@@ -40,7 +55,7 @@
                 <label><input asp-for="RememberCredentials" type="checkbox" name="remember"> Remember me</label>
             </div>
             <br />
-            <button type="submit" class="btn btn-danger">Submit</button>            
+            <button type="submit" class="btn btn-danger">Create</button>            
             <hr/>
             <h6>* login and password are case sensitive</h6>
         </form>

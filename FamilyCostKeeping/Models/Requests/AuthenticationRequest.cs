@@ -8,7 +8,7 @@ namespace FamilyCostKeeping.Models.Requests
 {
     public class AuthenticationRequest
     {
-        [Required(ErrorMessage = "Please enter User name.")]
+        [Required(ErrorMessage = "Please enter login.")]
         public string LogInName { get; set; }
         [Required(ErrorMessage = "Please enter password.")]
         public string Password { get; set; }

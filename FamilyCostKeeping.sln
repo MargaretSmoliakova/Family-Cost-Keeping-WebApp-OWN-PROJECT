@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilyCostKeeping", "FamilyCostKeeping\FamilyCostKeeping.csproj", "{E57B87BC-F8BE-493F-8A95-64F8E95B63B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyCostKeeping.Tests", "FamilyCostKeeping.Tests\FamilyCostKeeping.Tests.csproj", "{3EA7A0A6-AFDE-4C6D-A81A-84D6EE1899EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilyCostKeeping.Tests", "FamilyCostKeeping.Tests\FamilyCostKeeping.Tests.csproj", "{3EA7A0A6-AFDE-4C6D-A81A-84D6EE1899EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

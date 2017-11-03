@@ -13,7 +13,7 @@ namespace FamilyCostKeeping.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index([FromServices] IUserServices userServices)
+        public ViewResult Index([FromServices] IUserServices userServices)
         {
             GeneralUserInfoViewModel generalUserInfo = new GeneralUserInfoViewModel();
             generalUserInfo.DaysOfCurrentMonthLeft = userServices.GetDaysOfCurrentMonthLeft();

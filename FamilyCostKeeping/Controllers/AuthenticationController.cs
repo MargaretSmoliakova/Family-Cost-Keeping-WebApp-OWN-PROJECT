@@ -23,7 +23,7 @@ namespace FamilyCostKeeping.Controllers
 
             if (userServices.TryAuthenticate(authenticationRequest) == false)
             {
-                TempData["message"] = "Such user does not exist! Sorry...";
+                TempData["message"] = "Such user does not exist or you have entered wrong Login and(or) Password! Sorry...";
                 return View();
             }
 
