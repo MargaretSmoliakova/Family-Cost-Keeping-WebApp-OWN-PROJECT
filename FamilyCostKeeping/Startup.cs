@@ -38,6 +38,7 @@ namespace FamilyCostKeeping
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -47,6 +48,7 @@ namespace FamilyCostKeeping
             app.UseDeveloperExceptionPage();
             app.UseBrowserLink();
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
