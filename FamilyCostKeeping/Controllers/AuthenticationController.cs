@@ -16,7 +16,10 @@ namespace FamilyCostKeeping.Controllers
         [HttpPost]
         public IActionResult Index(AuthenticationRequest authenticationRequest, [FromServices] IUserServices userServices)
         {
-            if ()
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
             if (userServices.TryAuthenticate(authenticationRequest) == false)
             {
