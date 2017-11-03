@@ -39,7 +39,7 @@ namespace FamilyCostKeeping.Tests
             var result = userServices.GetDaysOfCurrentMonthLeft();
 
             //Assert
-            Assert.True(result == 28);
+            Assert.True(result == 31);
         }
 
         [Fact]

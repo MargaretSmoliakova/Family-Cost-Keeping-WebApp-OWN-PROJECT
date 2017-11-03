@@ -15,43 +15,34 @@ namespace FamilyCostKeeping.Services
 
 
 
-        public UserServices([FromServices] IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        public UserServices([FromServices] IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
+        
 
-        public double GetCurrentBalance()
-        {
-            return _unitOfWork.UserRepository
-                .Find(u => u.UserId == 1)
-                .FirstOrDefault()
-                .CurrentBalance;
-        }
+        public double GetCurrentBalance() => 
+            _unitOfWork.UserRepository
+            .Find(u => u.UserId == GetCurrentUserId())
+            .FirstOrDefault()
+            .CurrentBalance;
+        //TODO rewrite the logic here
+        public int GetDaysOfCurrentMonthLeft() =>
+            _unitOfWork.TimePeriodsSettingRepository
+            .Find(s => s.UserId == GetCurrentUserId())
+            .FirstOrDefault()
+            .MonthStartDay;
 
-        public int GetDaysOfCurrentMonthLeft()
-        {
-            var v = _unitOfWork.UserRepository
-                .Find(s => s.UserId == 1)
-                .FirstOrDefault();
-            var v1 = v.TimePeriodsSetting;
-            var v2 = v1.MonthStartDay;
-
-            return v2;             
-        }
-
-        public Currency GetPreferredCurrency()
-        {
-            return _unitOfWork.UserRepository
-                .Find(u => u.UserId == 1)
-                .FirstOrDefault()
-                .PreferredCurrency;
-        }
-
+        public Currency GetPreferredCurrency() =>
+            _unitOfWork.UserRepository
+            .Find(u => u.UserId == GetCurrentUserId())
+            .FirstOrDefault()
+            .PreferredCurrency;
+            
 
 
         private int GetCurrentUserId()
         {
             int userId = 0;
+
+            userId = 1;
 
             return userId;
         }

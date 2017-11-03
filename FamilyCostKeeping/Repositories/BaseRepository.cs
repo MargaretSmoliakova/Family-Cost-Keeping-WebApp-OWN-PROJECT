@@ -12,11 +12,9 @@ namespace FamilyCostKeeping.Repositories
         private readonly DbSet<T> _dbSet;
 
 
-        public BaseRepository(DbSet<T> dbSet)
-        {
-            _dbSet = dbSet;
-        }
 
+        public BaseRepository(DbSet<T> dbSet) => _dbSet = dbSet;
+        
 #region IBaseRepository<T> Implementation
 
         public void Add(T entity) => _dbSet.Add(entity);
