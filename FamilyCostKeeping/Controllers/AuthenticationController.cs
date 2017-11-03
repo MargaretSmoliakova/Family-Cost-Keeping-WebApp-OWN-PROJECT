@@ -16,6 +16,8 @@ namespace FamilyCostKeeping.Controllers
         [HttpPost]
         public IActionResult Index(AuthenticationRequest authenticationRequest, [FromServices] IUserServices userServices)
         {
+            if ()
+
             if (userServices.TryAuthenticate(authenticationRequest) == false)
             {
                 TempData["message"] = "Such user does not exist! Sorry...";

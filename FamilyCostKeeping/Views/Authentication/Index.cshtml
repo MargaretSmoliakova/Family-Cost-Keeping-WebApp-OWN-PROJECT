@@ -27,10 +27,12 @@
             <div class="form-group">
                 <label >User name:</label><br />
                 <input asp-for="LogInName" type="text" class="form-control" placeholder="User name"/><br />
+                <span asp-validation-for="LogInName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>Password:</label>
                 <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="checkbox">
                 <label><input asp-for="RememberCredentials" type="checkbox" name="remember"> Remember me</label>
