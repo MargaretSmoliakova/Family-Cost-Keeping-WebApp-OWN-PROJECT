@@ -21,6 +21,8 @@ namespace FamilyCostKeeping.Controllers
                 return View();
             }
 
+            userServices.CreateUser(signupRequest);
+
             TempData["message"] = "Signed up successfully! Please authenticate.";
 
             return View();

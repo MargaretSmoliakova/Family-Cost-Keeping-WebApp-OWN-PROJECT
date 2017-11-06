@@ -10,6 +10,7 @@ using FamilyCostKeeping.Data;
 using Microsoft.EntityFrameworkCore;
 using FamilyCostKeeping.Repositories;
 using FamilyCostKeeping.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace FamilyCostKeeping
 {
@@ -24,12 +25,17 @@ namespace FamilyCostKeeping
        
         public void ConfigureServices(IServiceCollection services)
         {            
-            services.AddDbContext<FamilyCostKeepingDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<FamilyCostKeepingDbContext>(options => 
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = "/Authentication");
 
             services.AddMvc();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUserServices, UserServices>();
+            
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

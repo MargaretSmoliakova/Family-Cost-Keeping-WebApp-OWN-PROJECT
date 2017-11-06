@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FamilyCostKeeping.Models.Requests;
 using FamilyCostKeeping.Services;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace FamilyCostKeeping.Controllers
 {
@@ -14,7 +16,7 @@ namespace FamilyCostKeeping.Controllers
         public ViewResult Index() => View();
 
         [HttpPost]
-        public IActionResult Index(AuthenticationRequest authenticationRequest, [FromServices] IUserServices userServices)
+        public async Task<IActionResult> Index(AuthenticationRequest authenticationRequest, [FromServices] IUserServices userServices)
         {
             if (!ModelState.IsValid)
             {
@@ -27,7 +29,22 @@ namespace FamilyCostKeeping.Controllers
                 return View();
             }
 
+            await CreateSessionCookies(authenticationRequest);
+
             return RedirectToAction("Index", "Home");     
+        }
+
+
+        
+        private async Task CreateSessionCookies(AuthenticationRequest authenticationRequest)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, authenticationRequest.LogInName)
+            };
+            var userIdentity = new ClaimsIdentity(claims, "login");
+            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+            await HttpContext.SignInAsync(principal);
         }
     }
 }

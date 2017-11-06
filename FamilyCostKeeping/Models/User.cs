@@ -17,7 +17,7 @@ namespace FamilyCostKeeping.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Mail { get; set; }
-        public DateTime Created { get; set; }
+        public DateTime CreatedDateTime { get; set; }
         public double CurrentBalance { get; set; }
         public Currency PreferredCurrency { get; set; }
 

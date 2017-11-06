@@ -25,7 +25,7 @@ namespace FamilyCostKeeping.Data
                             LastName = "TestLastName",
                             LogInName = "TestLogInName",
                             Password = "TestPassword",
-                            Created = DateTime.Now.ToLocalTime(),
+                            CreatedDateTime = DateTime.Now.ToUniversalTime(),
                             Mail = "testmail@testmail.com",
                             CurrentBalance = 506.55,
                             PreferredCurrency = Currency.USD,

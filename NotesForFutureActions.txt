@@ -1,6 +1,7 @@
 FamilyCostKeeping (current state):
 
-- create base Signup function (create userservice.method) and do LogInName && Password together unique;
+- get current user information from saved cookies;
+- bind view info with appropriate info from db for current user using its ID;
 
 - correct GetDaysOfCurrentMonthLeft method of the UserServices
 - why my EF code first is not correct (regarding related objects)???????
@@ -11,3 +12,4 @@ FamilyCostKeeping (current state):
 - create cookies and remember for autofilling the authentication information;
 
 - add admin functions (with authentication)
+- add remember user functionality (adk user)

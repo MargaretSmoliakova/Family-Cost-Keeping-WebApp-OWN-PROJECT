@@ -8,11 +8,13 @@ using FamilyCostKeeping.Models;
 using FamilyCostKeeping.Models.ViewModels;
 using FamilyCostKeeping.Repositories;
 using FamilyCostKeeping.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FamilyCostKeeping.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ViewResult Index([FromServices] IUserServices userServices)
         {
             GeneralUserInfoViewModel generalUserInfo = new GeneralUserInfoViewModel();

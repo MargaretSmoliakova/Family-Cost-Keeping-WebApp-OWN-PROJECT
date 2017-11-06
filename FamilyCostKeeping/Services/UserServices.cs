@@ -1,11 +1,12 @@
-﻿using FamilyCostKeeping.Repositories;
+﻿using FamilyCostKeeping.Models;
+using FamilyCostKeeping.Models.Requests;
+using FamilyCostKeeping.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FamilyCostKeeping.Models;
-using FamilyCostKeeping.Models.Requests;
 
 namespace FamilyCostKeeping.Services
 {
@@ -40,7 +41,23 @@ namespace FamilyCostKeeping.Services
             _unitOfWork.UserRepository
             .Find(u => u.LogInName.Equals(authenticationRequest.LogInName) 
                         && u.Password.Equals(authenticationRequest.Password))
-            .Any();        
+            .Any();
+
+        public void CreateUser(SignupRequest signupRequest)
+        {
+            _unitOfWork.UserRepository
+            .Add(new User
+            {
+                FirstName = signupRequest.FirstName,
+                LastName = signupRequest.LastName,
+                Mail = signupRequest.Mail,
+                LogInName = signupRequest.LogInName,
+                Password = signupRequest.Password,
+                CreatedDateTime = DateTime.Now.ToUniversalTime()
+            });
+
+            _unitOfWork.Save();
+        }
             
 
 

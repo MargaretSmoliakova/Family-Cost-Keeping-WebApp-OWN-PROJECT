@@ -15,5 +15,6 @@ namespace FamilyCostKeeping.Services
         double GetCurrentBalance();
         Currency GetPreferredCurrency();
         bool TryAuthenticate(AuthenticationRequest authenticationRequest);
+        void CreateUser(SignupRequest signupRequest);
     }
 }
