@@ -25,8 +25,8 @@ namespace FamilyCostKeeping
        
         public void ConfigureServices(IServiceCollection services)
         {            
-            services.AddDbContext<FamilyCostKeepingDbContext>(options => 
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<FamilyCostKeepingDbContext>(options => options
+                                                              .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.LoginPath = "/Authentication");

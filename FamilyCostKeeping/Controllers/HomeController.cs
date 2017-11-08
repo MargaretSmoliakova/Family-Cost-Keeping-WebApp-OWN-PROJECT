@@ -12,17 +12,33 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FamilyCostKeeping.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
-    {
-        [Authorize]
+    {        
         public ViewResult Index([FromServices] IUserServices userServices)
         {
-            GeneralUserInfoViewModel generalUserInfo = new GeneralUserInfoViewModel();
-            generalUserInfo.DaysOfCurrentMonthLeft = userServices.GetDaysOfCurrentMonthLeft();
-            generalUserInfo.Balance = userServices.GetCurrentBalance();
-            generalUserInfo.PreferredCurrency = userServices.GetPreferredCurrency();
+            int userId = GetUserIdFromCookies();
 
-            return View(generalUserInfo);
-        }        
+            return View(new GeneralUserInfoViewModel
+                            {
+                                DaysOfCurrentMonthLeft = userServices.GetDaysOfCurrentMonthLeft(userId),
+                                Balance = userServices.GetCurrentBalance(userId),
+                                PreferredCurrency = userServices.GetPreferredCurrency(userId)
+                            });
+        }
+
+
+
+        private int GetUserIdFromCookies()
+        {
+            int userId = 0;
+
+            int.TryParse(
+                HttpContext.User.Claims
+                .FirstOrDefault(x => x.Type == "id")
+                .Value, out userId);
+
+            return userId;
+        }
     }
 }

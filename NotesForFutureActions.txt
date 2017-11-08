@@ -1,6 +1,8 @@
 FamilyCostKeeping (current state):
 
-- get current user information from saved cookies (TODO HttpContextAccessor using DI);
+- create permanent cookies with userId and create middleware with authentication check
+- how to generalize getting userId from cookies using middleware?????
+- how to get current userId without parameters in services methods???????
 - bind view info with appropriate info from db for current user using its ID;
 
 - correct GetDaysOfCurrentMonthLeft method of the UserServices

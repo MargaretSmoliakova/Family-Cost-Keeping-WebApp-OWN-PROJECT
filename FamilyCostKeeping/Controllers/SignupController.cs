@@ -14,7 +14,8 @@ namespace FamilyCostKeeping.Controllers
         public ViewResult Index() => View();
 
         [HttpPost]
-        public IActionResult Index(SignupRequest signupRequest, [FromServices] IUserServices userServices)
+        public IActionResult Index 
+            (SignupRequest signupRequest, [FromServices] IUserServices userServices)
         {
             if (!ModelState.IsValid)
             {

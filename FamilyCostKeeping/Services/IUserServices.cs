@@ -12,11 +12,11 @@ namespace FamilyCostKeeping.Services
 {
     public interface IUserServices
     {
-        int GetDaysOfCurrentMonthLeft();
-        double GetCurrentBalance();
-        Currency GetPreferredCurrency();
-        bool IsAuthenticated(AuthenticationRequest authenticationRequest);
-        void CreateUser(SignupRequest signupRequest);
-        Task CreateCookies(AuthenticationRequest authenticationRequest, HttpContext httpContext);
+        int GetDaysOfCurrentMonthLeft (int userId);
+        double GetCurrentBalance (int userId);
+        Currency GetPreferredCurrency (int userId);
+        bool IsAuthenticated (AuthenticationRequest authenticationRequest);
+        void CreateUser (SignupRequest signupRequest);
+        Task CreateCookies (AuthenticationRequest authenticationRequest, HttpContext httpContext);
     }
 }

@@ -19,34 +19,31 @@ namespace FamilyCostKeeping.Services
 
 
 
-        public UserServices([FromServices] IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
+        public UserServices ([FromServices] IUnitOfWork unitOfWork) => 
+            _unitOfWork = unitOfWork;
         
-        public double GetCurrentBalance() => 
-            _unitOfWork.UserRepository
-            .Find(u => u.UserId == GetCurrentUserId())
-            .FirstOrDefault()
+        public double GetCurrentBalance (int userId) => 
+            GetUser(userId)
             .CurrentBalance;
 
         //TODO rewrite the logic here
-        public int GetDaysOfCurrentMonthLeft() =>
+        public int GetDaysOfCurrentMonthLeft (int userId) =>
             _unitOfWork.TimePeriodsSettingRepository
-            .Find(s => s.UserId == GetCurrentUserId())
+            .Find(s => s.UserId == userId)
             .FirstOrDefault()
             .MonthStartDay;
 
-        public Currency GetPreferredCurrency() =>
-            _unitOfWork.UserRepository
-            .Find(u => u.UserId == GetCurrentUserId())
-            .FirstOrDefault()
+        public Currency GetPreferredCurrency (int userId) =>
+            GetUser(userId)
             .PreferredCurrency;
 
-        public bool IsAuthenticated(AuthenticationRequest authenticationRequest) =>
+        public bool IsAuthenticated (AuthenticationRequest authenticationRequest) =>
             _unitOfWork.UserRepository
             .Find(u => u.LogInName.Equals(authenticationRequest.LogInName) 
-                        && u.Password.Equals(authenticationRequest.Password))
+                       && u.Password.Equals(authenticationRequest.Password))
             .Any();
 
-        public void CreateUser(SignupRequest signupRequest)
+        public void CreateUser (SignupRequest signupRequest)
         {
             _unitOfWork.UserRepository
             .Add(new User
@@ -62,11 +59,11 @@ namespace FamilyCostKeeping.Services
             _unitOfWork.Save();
         }
 
-        public async Task CreateCookies(AuthenticationRequest authenticationRequest, HttpContext httpContext)
+        public async Task CreateCookies (AuthenticationRequest authenticationRequest, HttpContext httpContext)
         {
             int userId = _unitOfWork.UserRepository
                         .Find(u => u.LogInName.Equals(authenticationRequest.LogInName)
-                        && u.Password.Equals(authenticationRequest.Password))
+                                   && u.Password.Equals(authenticationRequest.Password))
                         .FirstOrDefault()
                         .UserId;
 
@@ -81,14 +78,9 @@ namespace FamilyCostKeeping.Services
 
 
 
-        private int GetCurrentUserId(HttpContext httpContext)
-        {
-            int userId = 0;
-
-            string userIdString = httpContext.User.Claims.FirstOrDefault(x => x.Type == "id").Value;
-            int.TryParse(userIdString, out userId);
-
-            return userId;
-        }
+        private User GetUser (int userId) =>
+            _unitOfWork.UserRepository
+            .Find(u => u.UserId == userId)
+            .FirstOrDefault();
     }
 }
