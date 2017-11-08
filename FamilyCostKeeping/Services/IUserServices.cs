@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace FamilyCostKeeping.Services
 {
@@ -14,7 +15,8 @@ namespace FamilyCostKeeping.Services
         int GetDaysOfCurrentMonthLeft();
         double GetCurrentBalance();
         Currency GetPreferredCurrency();
-        bool TryAuthenticate(AuthenticationRequest authenticationRequest);
+        bool IsAuthenticated(AuthenticationRequest authenticationRequest);
         void CreateUser(SignupRequest signupRequest);
+        Task CreateCookies(AuthenticationRequest authenticationRequest, HttpContext httpContext);
     }
 }

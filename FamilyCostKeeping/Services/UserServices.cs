@@ -1,11 +1,13 @@
 ﻿using FamilyCostKeeping.Models;
 using FamilyCostKeeping.Models.Requests;
 using FamilyCostKeeping.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FamilyCostKeeping.Services
@@ -24,6 +26,7 @@ namespace FamilyCostKeeping.Services
             .Find(u => u.UserId == GetCurrentUserId())
             .FirstOrDefault()
             .CurrentBalance;
+
         //TODO rewrite the logic here
         public int GetDaysOfCurrentMonthLeft() =>
             _unitOfWork.TimePeriodsSettingRepository
@@ -37,7 +40,7 @@ namespace FamilyCostKeeping.Services
             .FirstOrDefault()
             .PreferredCurrency;
 
-        public bool TryAuthenticate(AuthenticationRequest authenticationRequest) =>
+        public bool IsAuthenticated(AuthenticationRequest authenticationRequest) =>
             _unitOfWork.UserRepository
             .Find(u => u.LogInName.Equals(authenticationRequest.LogInName) 
                         && u.Password.Equals(authenticationRequest.Password))
@@ -58,7 +61,24 @@ namespace FamilyCostKeeping.Services
 
             _unitOfWork.Save();
         }
-            
+
+        public async Task CreateCookies(AuthenticationRequest authenticationRequest, HttpContext httpContext)
+        {
+            int userId = _unitOfWork.UserRepository
+                        .Find(u => u.LogInName.Equals(authenticationRequest.LogInName)
+                        && u.Password.Equals(authenticationRequest.Password))
+                        .FirstOrDefault()
+                        .UserId;
+
+            var claims = new List<Claim>
+            {
+                new Claim("id", userId.ToString())
+            };
+            var userIdentity = new ClaimsIdentity(claims, "login");
+            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+            await httpContext.SignInAsync(principal);
+        }
+
 
 
         private int GetCurrentUserId()
