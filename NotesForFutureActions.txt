@@ -1,6 +1,7 @@
 FamilyCostKeeping (current state):
 
-- create permanent cookies with userId and create middleware with authentication check
+- correct outgoing URL from [Authorize] attribute to the Authentication controller (bad URL: .../Authentication?			ReturnUrl=%2F vs normal URL: .../Authentication)
+- create permanent cookies with userId and create middleware with authentication check (if "remember me checkbox" == true)
 - how to generalize getting userId from cookies using middleware?????
 - how to get current userId without parameters in services methods???????
 - bind view info with appropriate info from db for current user using its ID;
