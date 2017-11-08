@@ -81,11 +81,12 @@ namespace FamilyCostKeeping.Services
 
 
 
-        private int GetCurrentUserId()
+        private int GetCurrentUserId(HttpContext httpContext)
         {
             int userId = 0;
 
-            userId = 1;
+            string userIdString = httpContext.User.Claims.FirstOrDefault(x => x.Type == "id").Value;
+            int.TryParse(userIdString, out userId);
 
             return userId;
         }

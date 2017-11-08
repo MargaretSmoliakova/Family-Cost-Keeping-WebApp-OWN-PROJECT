@@ -1,6 +1,6 @@
 FamilyCostKeeping (current state):
 
-- get current user information from saved cookies;
+- get current user information from saved cookies (TODO HttpContextAccessor using DI);
 - bind view info with appropriate info from db for current user using its ID;
 
 - correct GetDaysOfCurrentMonthLeft method of the UserServices
@@ -13,3 +13,4 @@ FamilyCostKeeping (current state):
 
 - add admin functions (with authentication)
 - add remember user functionality (adk user)
+- improve cookies settings
