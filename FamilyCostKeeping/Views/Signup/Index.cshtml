@@ -19,11 +19,7 @@
 <body>    
     <div class="container">
         <h2>Family Cost Keeping</h2>
-        <a asp-controller="Authentication">Authenticate</a>
-        @if (TempData["message"] != null)
-        {
-            <div class="alert alert-success center-block text-center">@TempData["message"]</div>
-        }
+        <a asp-controller="Authentication">Authenticate</a>        
         <hr/>        
         <form asp-action="Index" method="post">
             <div class="form-group">
@@ -50,10 +46,7 @@
                 <label>Password:</label>
                 <input asp-for="Password" type="password" class="form-control" placeholder="Password">
                 <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="checkbox">
-                <label><input asp-for="RememberCredentials" type="checkbox" name="remember"> Remember me</label>
-            </div>
+            </div>            
             <br />
             <button type="submit" class="btn btn-danger">Create</button>            
             <hr/>

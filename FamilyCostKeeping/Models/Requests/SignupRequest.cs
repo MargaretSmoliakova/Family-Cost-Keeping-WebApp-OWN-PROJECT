@@ -18,7 +18,6 @@ namespace FamilyCostKeeping.Models.Requests
         public string LastName { get; set; }
         [Required(ErrorMessage = "Please enter email.")]
         [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Please enter a valid email address.")]
-        public string Mail { get; set; }        
-        public bool RememberCredentials { get; set; }
+        public string Mail { get; set; }
     }
 }

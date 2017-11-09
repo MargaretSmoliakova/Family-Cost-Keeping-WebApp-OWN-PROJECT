@@ -55,7 +55,7 @@ namespace FamilyCostKeeping
             app.UseBrowserLink();
             app.UseStaticFiles();
             app.UseAuthentication();
-
+                        
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

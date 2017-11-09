@@ -20,24 +20,28 @@
     <div class="container">
         <h2>Family Cost Keeping</h2>
         <a asp-controller="Signup">Sign Up</a>
-        @if (TempData["message"] != null)
+        @if (TempData["invalidDataMessage"] != null)
         {
-            <div class="alert alert-danger center-block text-center">@TempData["message"]</div>
-        }   
+            <div class="alert alert-danger center-block text-center">@TempData["invalidDataMessage"]</div>
+        }
+        @if (TempData["signedUpSuccessMessage"] != null)
+        {
+            <div class="alert alert-success center-block text-center">@TempData["signedUpSuccessMessage"]</div>            
+        }
         <hr/>
         <form asp-action="Index" method="post">
             <div class="form-group">
                 <label >Login:</label><br />
-                <input asp-for="LogInName" type="text" class="form-control" placeholder="Login"/>
+                <input asp-for="LogInName" type="text" class="form-control" placeholder="Login" />
                 <span asp-validation-for="LogInName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>Password:</label>
-                <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+                <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="checkbox">
-                <label><input asp-for="RememberCredentials" type="checkbox" name="remember"> Remember me</label>
+                <label><input asp-for="RememberCredentials" type="checkbox" /> Remember me</label>
             </div>
             <br />
             <button type="submit" class="btn btn-danger">Submit</button>            

@@ -18,7 +18,7 @@ namespace FamilyCostKeeping.Services
         private readonly IUnitOfWork _unitOfWork;
 
 
-
+        #region Public
         public UserServices ([FromServices] IUnitOfWork unitOfWork) => 
             _unitOfWork = unitOfWork;
         
@@ -26,7 +26,7 @@ namespace FamilyCostKeeping.Services
             GetUser(userId)
             .CurrentBalance;
 
-        //TODO rewrite the logic here
+        //TODO rewrite the logic here and consider the case when user initially created
         public int GetDaysOfCurrentMonthLeft (int userId) =>
             _unitOfWork.TimePeriodsSettingRepository
             .Find(s => s.UserId == userId)
@@ -59,28 +59,40 @@ namespace FamilyCostKeeping.Services
             _unitOfWork.Save();
         }
 
-        public async Task CreateCookies (AuthenticationRequest authenticationRequest, HttpContext httpContext)
+        public async Task CreateCookies 
+            (AuthenticationRequest authenticationRequest, HttpContext httpContext)
         {
             int userId = _unitOfWork.UserRepository
-                        .Find(u => u.LogInName.Equals(authenticationRequest.LogInName)
-                                   && u.Password.Equals(authenticationRequest.Password))
-                        .FirstOrDefault()
-                        .UserId;
+                            .Find(u => u.LogInName.Equals(authenticationRequest.LogInName)
+                                       && u.Password.Equals(authenticationRequest.Password))
+                            .FirstOrDefault()
+                            .UserId;
 
-            var claims = new List<Claim>
-            {
-                new Claim("id", userId.ToString())
-            };
-            var userIdentity = new ClaimsIdentity(claims, "login");
-            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-            await httpContext.SignInAsync(principal);
+            List<Claim> claims = new List<Claim>
+                            {
+                                new Claim("userId", userId.ToString())
+                            };
+
+            ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, "login"));
+
+            if (authenticationRequest.RememberCredentials)
+                await httpContext.SignInAsync
+                (principal, new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTimeOffset.Now.AddDays(90)
+                });
+            else
+                await httpContext.SignInAsync(principal);
+
         }
+        #endregion
 
-
-
+        #region Private
         private User GetUser (int userId) =>
             _unitOfWork.UserRepository
             .Find(u => u.UserId == userId)
             .FirstOrDefault();
+        #endregion
     }
 }

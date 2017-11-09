@@ -9,15 +9,18 @@ using FamilyCostKeeping.Models.ViewModels;
 using FamilyCostKeeping.Repositories;
 using FamilyCostKeeping.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace FamilyCostKeeping.Controllers
 {
     [Authorize]
     public class HomeController : Controller
-    {        
+    {
+        #region Actions
         public ViewResult Index([FromServices] IUserServices userServices)
         {
-            int userId = GetUserIdFromCookies();
+            int userId = GetUserIdFromCookies();           
 
             return View(new GeneralUserInfoViewModel
                             {
@@ -27,18 +30,25 @@ namespace FamilyCostKeeping.Controllers
                             });
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Index", "Authentication");
+        }
+        #endregion
 
 
+        #region Private
         private int GetUserIdFromCookies()
         {
-            int userId = 0;
-
             int.TryParse(
                 HttpContext.User.Claims
-                .FirstOrDefault(x => x.Type == "id")
-                .Value, out userId);
+                .FirstOrDefault(x => x.Type == "userId")
+                .Value, out int userId);
 
             return userId;
         }
+        #endregion
     }
 }

@@ -17,16 +17,16 @@ namespace FamilyCostKeeping.Controllers
         public IActionResult Index 
             (SignupRequest signupRequest, [FromServices] IUserServices userServices)
         {
-            if (!ModelState.IsValid)
+            if (! ModelState.IsValid)
             {
                 return View();
             }
 
             userServices.CreateUser(signupRequest);
 
-            TempData["message"] = "Signed up successfully! Please authenticate.";
+            TempData["signedUpSuccessMessage"] = "Signed up successfully! Please authenticate.";
 
-            return View();
+            return RedirectToAction("Index", "Authentication");
         }
     }
 }
