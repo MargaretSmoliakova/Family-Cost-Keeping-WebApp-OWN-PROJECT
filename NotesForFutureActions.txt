@@ -1,12 +1,13 @@
 FamilyCostKeeping (current state):
 
+- improve cookies settings, espesially protection, and think about cookies access (how to protect info - create and save encrypted key for every user into cookie and save it into db) so change userId info access from cookie in the program;
+- get local DateTime info or local zone from user (think how) to do the next task;
 - correct GetDaysOfCurrentMonthLeft method of the UserServices;
 - why my EF code first is not correct (regarding related objects)???????;
 
 - create connection between models and view's components (main page);
 - create functionality for the binded components and services;
 
-- improve cookies settings, espesially protection, and think about cookies access (how to protect info);
 - should I save only the userId in the cookies;
 - should I save login and password in the cookies and authenticate user and using this info;
 - should I get userId usign userId from cookies or also using login and password;

@@ -20,16 +20,14 @@ namespace FamilyCostKeeping.Tests
         {
             //Arrange
             Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(m => m.UserRepository.Find(It.IsAny<Expression<Func<User, bool>>>()))
-                .Returns(new List<User>
+            unitOfWorkMock.Setup(m => m.TimePeriodsSettingRepository.Find(It.IsAny<Expression<Func<TimePeriodsSetting, bool>>>()))
+                .Returns(new List<TimePeriodsSetting>
                                     {
-                                        new User
+                                        new TimePeriodsSetting
                                         {
                                             UserId = 1,
-                                            TimePeriodsSetting = new TimePeriodsSetting
-                                            {
-                                                MonthStartDay = 31
-                                            }
+                                            MonthStartDay = 30,
+                                            IsWeekendsEscapedInMonthlyRefreshing = true
                                         }
                                     }
                 );
@@ -37,10 +35,10 @@ namespace FamilyCostKeeping.Tests
             IUserServices userServices = new UserServices(unitOfWorkMock.Object);
 
             //Act
-            var result = userServices.GetDaysOfCurrentMonthLeft();
+            var result = userServices.GetDaysOfCurrentMonthLeft(1);
 
             //Assert
-            Assert.True(result == 31);
+            Assert.True(result == 21);
         }
 
     }

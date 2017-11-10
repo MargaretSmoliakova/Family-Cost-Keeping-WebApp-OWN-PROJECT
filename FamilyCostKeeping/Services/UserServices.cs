@@ -27,11 +27,15 @@ namespace FamilyCostKeeping.Services
             .CurrentBalance;
 
         //TODO rewrite the logic here and consider the case when user initially created
-        public int GetDaysOfCurrentMonthLeft (int userId) =>
-            _unitOfWork.TimePeriodsSettingRepository
+        public int GetDaysOfCurrentMonthLeft(int userId)
+        {
+            var daysInCurrentMonth = DateTime.DaysInMonth(DateTime.UtcNow.Year, DateTime.UtcNow.Month);
+
+            return _unitOfWork.TimePeriodsSettingRepository
             .Find(s => s.UserId == userId)
             .FirstOrDefault()
             .MonthStartDay;
+        }
 
         public Currency GetPreferredCurrency (int userId) =>
             GetUser(userId)
