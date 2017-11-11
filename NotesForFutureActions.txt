@@ -2,8 +2,8 @@ FamilyCostKeeping (current state):
 
 - improve cookies settings, espesially protection, and think about cookies access (how to protect info - create and save encrypted key for every user into cookie and save it into db) so change userId info access from cookie in the program;
 - get local DateTime info or local zone from user (think how) to do the next task;
-- correct GetDaysOfCurrentMonthLeft method of the UserServices;
 - why my EF code first is not correct (regarding related objects)???????;
+- correct GetDaysOfCurrentMonthLeft method of the UserServices;
 
 - create connection between models and view's components (main page);
 - create functionality for the binded components and services;
