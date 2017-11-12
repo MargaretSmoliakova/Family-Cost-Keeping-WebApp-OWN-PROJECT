@@ -1,6 +1,6 @@
 ﻿@model GeneralUserInfoViewModel
 
-<label>@Model.CurrentUtcDateTime.ToLocalTime().ToShortDateString()</label>
+<label>End of month: @Model.CurrentUtcDateTime.ToLocalTime().AddDays(Model.DaysOfCurrentMonthLeft).ToShortDateString()</label>
 <br />
 <label>@Model.DaysOfCurrentMonthLeft (days left)</label>
 <br />
