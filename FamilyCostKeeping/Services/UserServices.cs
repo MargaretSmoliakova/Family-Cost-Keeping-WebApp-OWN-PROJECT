@@ -9,10 +9,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using FamilyCostKeeping.Models.Internal;
 
 namespace FamilyCostKeeping.Services
 {
-    // TODO think how to get current principal information to replace 1 number and do I actually need this linq
     public class UserServices : IUserServices
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -26,57 +26,30 @@ namespace FamilyCostKeeping.Services
             GetUser(userId)
             .CurrentBalance;
 
-        //TODO rewrite the logic here and consider the case when user initially created
         public int GetDaysOfCurrentMonthLeft(int userId)
         {
-            int remainingDays = 0;
-            int validMonthStartDay = 0;
-            int validMonthStartDayNextMonth = 0;
-            DateTime currentUtcDateTime = DateTime.UtcNow;
-            DateTime monthLaterFromCurrentUtcDateTime = currentUtcDateTime.AddMonths(1);            
-            int monthStartDay = _unitOfWork.TimePeriodsSettingRepository
-                                .Find(s => s.UserId == userId)
-                                .FirstOrDefault()
-                                .MonthStartDay;
+            RemainingDaysParametersBunch parametersBunch = new RemainingDaysParametersBunch();
+            parametersBunch.MonthStartDayOriginal = _unitOfWork.TimePeriodsSettingRepository
+                                                   .Find(s => s.UserId == userId)
+                                                   .FirstOrDefault()
+                                                   .MonthStartDay;
 
-            validMonthStartDay = GetValidMonthStartDate(monthStartDay, currentUtcDateTime.Month, currentUtcDateTime.Year);
-            validMonthStartDayNextMonth = GetValidMonthStartDate(monthStartDay, monthLaterFromCurrentUtcDateTime.Month, monthLaterFromCurrentUtcDateTime.Year);
+            parametersBunch.ValidMonthStartDayThisMonth = GetValidMonthStartDay
+                (parametersBunch.MonthStartDayOriginal, parametersBunch.CurrentUtcDateTime.Month, parametersBunch.CurrentUtcDateTime.Year);
+            parametersBunch.ValidMonthStartDayNextMonth = GetValidMonthStartDay
+                (parametersBunch.MonthStartDayOriginal, parametersBunch.MonthLaterFromCurrentUtcDateTime.Month, parametersBunch.MonthLaterFromCurrentUtcDateTime.Year);
 
-            if (currentUtcDateTime.Day >= validMonthStartDay)
-            {
-                remainingDays = (DateTime.Parse($"{monthLaterFromCurrentUtcDateTime.Year}-{monthLaterFromCurrentUtcDateTime.Month}-{validMonthStartDayNextMonth}")
-                            - currentUtcDateTime).Days + 1;
-            }
-            else
-            {
-                remainingDays = (DateTime.Parse($"{currentUtcDateTime.Year}-{currentUtcDateTime.Month}-{validMonthStartDay}")
-                            - currentUtcDateTime).Days + 1;
-            }
+            CountRemainingDays(parametersBunch);
             
-
             if (_unitOfWork.TimePeriodsSettingRepository
                 .Find(s => s.UserId == userId)
                 .FirstOrDefault()
                 .IsWeekendsEscapedInMonthlyRefreshing)
-            {                
-                DayOfWeek dayOfWeekCurrentMonth = new DateTime(currentUtcDateTime.Year, currentUtcDateTime.Month, validMonthStartDay).DayOfWeek;
-                DayOfWeek dayOfWeekNextMonth = new DateTime(monthLaterFromCurrentUtcDateTime.Year, monthLaterFromCurrentUtcDateTime.Month, validMonthStartDayNextMonth).DayOfWeek;
-
-                if (currentUtcDateTime.Day >= validMonthStartDay
-                    && (dayOfWeekNextMonth == DayOfWeek.Sunday || dayOfWeekNextMonth == DayOfWeek.Saturday))
-                {
-                    remainingDays = dayOfWeekNextMonth == DayOfWeek.Saturday ? remainingDays - 1 : remainingDays;
-                    remainingDays = dayOfWeekNextMonth == DayOfWeek.Sunday ? remainingDays - 2 : remainingDays;
-                }
-                else if (currentUtcDateTime.Day < validMonthStartDay
-                    && (dayOfWeekCurrentMonth == DayOfWeek.Sunday || dayOfWeekCurrentMonth == DayOfWeek.Saturday))
-                {
-                    remainingDays = dayOfWeekCurrentMonth == DayOfWeek.Saturday ? remainingDays - 1 : remainingDays;
-                    remainingDays = dayOfWeekCurrentMonth == DayOfWeek.Sunday ? remainingDays - 2 : remainingDays;
-                }
+            {
+                ConsiderWeekends(parametersBunch);
             }
 
-            return remainingDays;
+            return parametersBunch.RemainingDays;
         }
 
         public Currency GetPreferredCurrency (int userId) =>
@@ -150,7 +123,7 @@ namespace FamilyCostKeeping.Services
             .Find(u => u.UserId == userId)
             .FirstOrDefault();
 
-        private int GetValidMonthStartDate(int monthStartDay, int month, int year)
+        private int GetValidMonthStartDay(int monthStartDay, int month, int year)
         {
             int validMonthStartDay = monthStartDay;
             int daysInCurrentMonth = DateTime.DaysInMonth(year, month);
@@ -161,6 +134,41 @@ namespace FamilyCostKeeping.Services
             }
 
             return validMonthStartDay;
+        }
+
+        private void CountRemainingDays(RemainingDaysParametersBunch parametersBunch)
+        {
+            if (parametersBunch.CurrentUtcDateTime.Day >= parametersBunch.ValidMonthStartDayThisMonth)
+            {
+                parametersBunch.RemainingDays = (DateTime.Parse($"{parametersBunch.MonthLaterFromCurrentUtcDateTime.Year}-{parametersBunch.MonthLaterFromCurrentUtcDateTime.Month}-{parametersBunch.ValidMonthStartDayNextMonth}")
+                            - parametersBunch.CurrentUtcDateTime).Days + 1;
+            }
+            else
+            {
+                parametersBunch.RemainingDays = (DateTime.Parse($"{parametersBunch.CurrentUtcDateTime.Year}-{parametersBunch.CurrentUtcDateTime.Month}-{parametersBunch.ValidMonthStartDayThisMonth}")
+                            - parametersBunch.CurrentUtcDateTime).Days + 1;
+            }
+        }
+
+        private void ConsiderWeekends(RemainingDaysParametersBunch parametersBunch)
+        {
+            DayOfWeek dayOfWeekCurrentMonth = new DateTime(parametersBunch.CurrentUtcDateTime.Year, parametersBunch.CurrentUtcDateTime.Month, parametersBunch.ValidMonthStartDayThisMonth)
+                                               .DayOfWeek;
+            DayOfWeek dayOfWeekNextMonth = new DateTime(parametersBunch.MonthLaterFromCurrentUtcDateTime.Year, parametersBunch.MonthLaterFromCurrentUtcDateTime.Month, parametersBunch.ValidMonthStartDayNextMonth)
+                                               .DayOfWeek;
+
+            if (parametersBunch.CurrentUtcDateTime.Day >= parametersBunch.ValidMonthStartDayThisMonth
+                && (dayOfWeekNextMonth == DayOfWeek.Sunday || dayOfWeekNextMonth == DayOfWeek.Saturday))
+            {
+                parametersBunch.RemainingDays = dayOfWeekNextMonth == DayOfWeek.Saturday ? parametersBunch.RemainingDays - 1 : parametersBunch.RemainingDays;
+                parametersBunch.RemainingDays = dayOfWeekNextMonth == DayOfWeek.Sunday ? parametersBunch.RemainingDays - 2 : parametersBunch.RemainingDays;
+            }
+            else if (parametersBunch.CurrentUtcDateTime.Day < parametersBunch.ValidMonthStartDayThisMonth
+                && (dayOfWeekCurrentMonth == DayOfWeek.Sunday || dayOfWeekCurrentMonth == DayOfWeek.Saturday))
+            {
+                parametersBunch.RemainingDays = dayOfWeekCurrentMonth == DayOfWeek.Saturday ? parametersBunch.RemainingDays - 1 : parametersBunch.RemainingDays;
+                parametersBunch.RemainingDays = dayOfWeekCurrentMonth == DayOfWeek.Sunday ? parametersBunch.RemainingDays - 2 : parametersBunch.RemainingDays;
+            }
         }
         #endregion
     }

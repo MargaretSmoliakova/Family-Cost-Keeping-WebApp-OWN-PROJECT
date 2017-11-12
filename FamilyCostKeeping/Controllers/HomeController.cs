@@ -18,7 +18,7 @@ namespace FamilyCostKeeping.Controllers
     public class HomeController : Controller
     {
         #region Actions
-        public ViewResult Index([FromServices] IUserServices userServices)
+        public IActionResult Index([FromServices] IUserServices userServices)
         {
             int userId = GetUserIdFromCookies();           
 

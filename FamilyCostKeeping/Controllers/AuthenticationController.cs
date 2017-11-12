@@ -13,7 +13,7 @@ namespace FamilyCostKeeping.Controllers
     public class AuthenticationController : Controller
     {
         [HttpGet]
-        public ViewResult Index() => View();
+        public IActionResult Index() => View();
 
         [HttpPost]
         public async Task<IActionResult> Index

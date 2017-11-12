@@ -11,7 +11,7 @@ namespace FamilyCostKeeping.Controllers
     public class SignupController : Controller
     {
         [HttpGet]
-        public ViewResult Index() => View();
+        public IActionResult Index() => View();
 
         [HttpPost]
         public IActionResult Index 
