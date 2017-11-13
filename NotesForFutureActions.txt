@@ -10,3 +10,4 @@ FamilyCostKeeping (current state):
 
 - add main general page for unauthenticated users (general app info);
 - add admin functions (with authentication);
+- add friends users for the current user;
