@@ -1,4 +1,5 @@
-﻿
+﻿@model SettingsViewModel
+
 @{
     Layout = null;
 }
@@ -18,6 +19,11 @@
 <body>
     <div class="container">
         <h2>Settings</h2>
+        <a asp-controller="Home">Back to the Home page</a>
+        @if (TempData["saveSuccessMessage"] != null)
+        {
+            <div class="alert alert-success center-block text-center">@TempData["saveSuccessMessage"]</div>
+        }
         <hr />
         <form asp-action="Index" method="post">
             <div class="form-group">

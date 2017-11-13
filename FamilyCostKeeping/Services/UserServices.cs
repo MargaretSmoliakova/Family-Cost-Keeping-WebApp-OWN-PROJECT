@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using FamilyCostKeeping.Models.Internal;
+using FamilyCostKeeping.Models.ViewModels;
 
 namespace FamilyCostKeeping.Services
 {
@@ -114,6 +115,24 @@ namespace FamilyCostKeeping.Services
             else
                 await httpContext.SignInAsync(principal);
 
+        }
+
+        public GeneralUserInfoViewModel GetGeneralUserInfo(int userId)
+        {
+            return new GeneralUserInfoViewModel
+            {
+                DaysOfCurrentMonthLeft = GetDaysOfCurrentMonthLeft(userId),
+                Balance = GetCurrentBalance(userId),
+                PreferredCurrency = GetPreferredCurrency(userId)
+            };
+        }
+
+        public SettingsViewModel GetSettings(int userId)
+        {
+            return new SettingsViewModel
+            {
+                // impl.
+            };
         }
         #endregion
 

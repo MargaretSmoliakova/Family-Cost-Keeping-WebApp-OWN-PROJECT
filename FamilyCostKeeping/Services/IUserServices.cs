@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using FamilyCostKeeping.Models.ViewModels;
 
 namespace FamilyCostKeeping.Services
 {
@@ -18,5 +19,7 @@ namespace FamilyCostKeeping.Services
         bool IsAuthenticated (AuthenticationRequest authenticationRequest);
         void CreateUser (SignupRequest signupRequest);
         Task CreateCookies (AuthenticationRequest authenticationRequest, HttpContext httpContext);
+        GeneralUserInfoViewModel GetGeneralUserInfo(int userId);
+        SettingsViewModel GetSettings(int userId);
     }
 }

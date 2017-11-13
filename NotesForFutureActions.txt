@@ -1,5 +1,6 @@
 FamilyCostKeeping (current state):
 
+- write GetSettings method in the UserServices;
 - add settings page with the current info about user and ability to change it;
 - create connection between models and view's components (main page);
 - why my EF code first is not correct (regarding related objects)??????? or is it incorrect? how can I get related objects or do I need this;
@@ -11,3 +12,5 @@ FamilyCostKeeping (current state):
 - add main general page for unauthenticated users (general app info);
 - add admin functions (with authentication);
 - add friends users for the current user;
+
+- create normal UI;

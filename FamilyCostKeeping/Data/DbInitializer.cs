@@ -58,6 +58,12 @@ namespace FamilyCostKeeping.Data
                                 CategoryId = 1,
                                 Comment = "test comment for earning",
                                 CreatedDateTime = DateTime.Now.ToLocalTime()
+                            } },
+                            Categories = new List<Category> { new Category
+                            {
+                                Name = "TestCategory",
+                                Description = "test category for testing",
+                                UserId = 1
                             } }
                         }
                     };

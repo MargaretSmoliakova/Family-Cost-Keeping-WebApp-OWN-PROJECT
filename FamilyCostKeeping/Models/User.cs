@@ -23,6 +23,7 @@ namespace FamilyCostKeeping.Models
 
         public virtual ICollection<Earning> Earnings { get; set; }
         public virtual ICollection<Cost> Costs { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
 
         public TimePeriodsSetting TimePeriodsSetting { get; set; }
     }

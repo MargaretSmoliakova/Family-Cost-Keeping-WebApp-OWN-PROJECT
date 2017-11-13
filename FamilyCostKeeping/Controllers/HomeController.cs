@@ -22,12 +22,7 @@ namespace FamilyCostKeeping.Controllers
         {
             int userId = GetUserIdFromCookies();           
 
-            return View(new GeneralUserInfoViewModel
-                            {
-                                DaysOfCurrentMonthLeft = userServices.GetDaysOfCurrentMonthLeft(userId),
-                                Balance = userServices.GetCurrentBalance(userId),
-                                PreferredCurrency = userServices.GetPreferredCurrency(userId)
-                            });
+            return View(userServices.GetGeneralUserInfo(userId));
         }
 
         public async Task<IActionResult> Logout()
