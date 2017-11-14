@@ -1,9 +1,9 @@
 FamilyCostKeeping (current state):
 
+- why my EF code first is not correct (regarding related objects)??????? or is it incorrect? how can I get related objects or do I need this;
 - get localTimeZone of the user;
 - add settings page with the current info about user and ability to change it;
 - create connection between models and view's components (main page);
-- why my EF code first is not correct (regarding related objects)??????? or is it incorrect? how can I get related objects or do I need this;
 - create functionality for the binded components and services;
 
 - how to test DateTime for GetDaysOfCurrentMonthLeft;
