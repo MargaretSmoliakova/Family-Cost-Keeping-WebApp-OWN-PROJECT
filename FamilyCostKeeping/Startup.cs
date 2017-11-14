@@ -30,11 +30,7 @@ namespace FamilyCostKeeping
                                                               .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                    {
-                        options.LoginPath = "/Authentication";
-                        // Add custom settings
-                    });
+                .AddCookie(options => options.LoginPath = "/Authentication");
 
             services.AddMvc();
 
