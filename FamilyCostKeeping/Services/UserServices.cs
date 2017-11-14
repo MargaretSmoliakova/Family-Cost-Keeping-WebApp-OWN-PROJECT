@@ -17,28 +17,39 @@ namespace FamilyCostKeeping.Services
     public class UserServices : IUserServices
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IClock _clock;
 
 
         #region Public
         public UserServices ([FromServices] IUnitOfWork unitOfWork) => 
             _unitOfWork = unitOfWork;
+
+        public UserServices([FromServices] IUnitOfWork unitOfWork, [FromServices] IClock clock)
+        {
+            _unitOfWork = unitOfWork;
+            _clock = clock;
+        }
+
         
         public double GetCurrentBalance (int userId) => 
-            GetUser(userId)
-            .CurrentBalance;
+            GetUser(userId).CurrentBalance;
 
         public int GetDaysOfCurrentMonthLeft(int userId)
         {
-            RemainingDaysParametersBunch parametersBunch = new RemainingDaysParametersBunch();
+            RemainingDaysParametersBunch parametersBunch = new RemainingDaysParametersBunch(_clock);
             parametersBunch.MonthStartDayOriginal = _unitOfWork.TimePeriodsSettingRepository
                                                    .Find(s => s.UserId == userId)
                                                    .FirstOrDefault()
                                                    .MonthStartDay;
 
             parametersBunch.ValidMonthStartDayThisMonth = GetValidMonthStartDay
-                (parametersBunch.MonthStartDayOriginal, parametersBunch.CurrentUtcDateTime.Month, parametersBunch.CurrentUtcDateTime.Year);
+                                                            (parametersBunch.MonthStartDayOriginal,
+                                                            parametersBunch.CurrentUtcDateTime.Month,
+                                                            parametersBunch.CurrentUtcDateTime.Year);
             parametersBunch.ValidMonthStartDayNextMonth = GetValidMonthStartDay
-                (parametersBunch.MonthStartDayOriginal, parametersBunch.MonthLaterFromCurrentUtcDateTime.Month, parametersBunch.MonthLaterFromCurrentUtcDateTime.Year);
+                                                            (parametersBunch.MonthStartDayOriginal,
+                                                            parametersBunch.MonthLaterFromCurrentUtcDateTime.Month,
+                                                            parametersBunch.MonthLaterFromCurrentUtcDateTime.Year);
 
             CountRemainingDays(parametersBunch);
             
@@ -54,8 +65,7 @@ namespace FamilyCostKeeping.Services
         }
 
         public Currency GetPreferredCurrency (int userId) =>
-            GetUser(userId)
-            .PreferredCurrency;
+            GetUser(userId).PreferredCurrency;
 
         public bool IsAuthenticated (AuthenticationRequest authenticationRequest) =>
             _unitOfWork.UserRepository
@@ -72,7 +82,7 @@ namespace FamilyCostKeeping.Services
                 Mail = signupRequest.Mail,
                 LogInName = signupRequest.LogInName,
                 Password = signupRequest.Password,
-                CreatedDateTime = DateTime.Now.ToUniversalTime()
+                CreatedDateTime = _clock.UtcNow
             };
 
             _unitOfWork.UserRepository
@@ -82,7 +92,7 @@ namespace FamilyCostKeeping.Services
                 .Add(new TimePeriodsSetting
                 {
                     User = newUser,
-                    MonthStartDay = DateTime.UtcNow.Day,
+                    MonthStartDay = _clock.UtcNow.Day,
                     IsWeekendsEscapedInMonthlyRefreshing = false
                 });
 
@@ -107,11 +117,11 @@ namespace FamilyCostKeeping.Services
 
             if (authenticationRequest.RememberCredentials)
                 await httpContext.SignInAsync
-                (principal, new AuthenticationProperties
-                {
-                    IsPersistent = true,
-                    ExpiresUtc = DateTimeOffset.Now.AddDays(90)
-                });
+                                    (principal, new AuthenticationProperties
+                                    {
+                                        IsPersistent = true,
+                                        ExpiresUtc = DateTimeOffset.Now.AddDays(90)
+                                    });
             else
                 await httpContext.SignInAsync(principal);
 
@@ -121,6 +131,7 @@ namespace FamilyCostKeeping.Services
         {
             return new GeneralUserInfoViewModel
             {
+                CurrentUtcDateTime = _clock.UtcNow,
                 DaysOfCurrentMonthLeft = GetDaysOfCurrentMonthLeft(userId),
                 Balance = GetCurrentBalance(userId),
                 PreferredCurrency = GetPreferredCurrency(userId)
@@ -131,7 +142,7 @@ namespace FamilyCostKeeping.Services
         {
             return new SettingsViewModel
             {
-                // impl.
+                
             };
         }
         #endregion

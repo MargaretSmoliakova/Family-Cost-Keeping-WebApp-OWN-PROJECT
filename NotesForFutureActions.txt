@@ -1,11 +1,13 @@
 FamilyCostKeeping (current state):
 
+- get localTimeZone of the user;
 - write GetSettings method in the UserServices;
 - add settings page with the current info about user and ability to change it;
 - create connection between models and view's components (main page);
 - why my EF code first is not correct (regarding related objects)??????? or is it incorrect? how can I get related objects or do I need this;
 - create functionality for the binded components and services;
 
+- how to test DateTime for GetDaysOfCurrentMonthLeft;
 - improve cookies settings, espesially protection, and think about cookies access (how to protect info - create and save encrypted key for every user into cookie and save it into db) so change userId info access from cookie in the program;
 - correct outgoing URL from [Authorize] attribute to the Authentication controller (bad URL: .../Authentication?ReturnUrl=%2F vs normal URL: .../Authentication);
 

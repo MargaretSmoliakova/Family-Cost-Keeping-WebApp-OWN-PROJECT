@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using FamilyCostKeeping.Repositories;
 using FamilyCostKeeping.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using FamilyCostKeeping.Models.Internal;
 
 namespace FamilyCostKeeping
 {
@@ -35,6 +36,7 @@ namespace FamilyCostKeeping
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUserServices, UserServices>();
+            services.AddTransient<IClock, Clock>();
             
         }
 
