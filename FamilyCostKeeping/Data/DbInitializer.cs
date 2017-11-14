@@ -14,10 +14,6 @@ namespace FamilyCostKeeping.Data
 
             if (!context.Users.Any())
             {
-                var category = new Category { Name = "TestCategory", Description = "test category for testing" };
-                context.Categories.Add(category);
-                context.SaveChanges();
-
                 var users = new User[]
                     {
                         new User {
@@ -29,13 +25,13 @@ namespace FamilyCostKeeping.Data
                             Mail = "testmail@testmail.com",
                             CurrentBalance = 506.55,
                             PreferredCurrency = Currency.USD,
-                            TimePeriodsSetting = new TimePeriodsSetting
-                            {
+                            TimePeriodsSetting = new TimePeriodsSetting {
                                 UserId = 1,
-                                MonthStartDay = 31,
+                                MonthStartDay = 10,
                                 IsWeekendsEscapedInMonthlyRefreshing = true
                             },
-                            Costs = new List<Cost> { new Cost {
+                            Costs = new List<Cost> { new Cost
+                            {
                                 UserId = 1,
                                 Name = "TestCost",
                                 IsMonthly = true,
@@ -44,12 +40,14 @@ namespace FamilyCostKeeping.Data
                                 CategoryId = 1,
                                 CreatedDateTime = DateTime.Now.ToLocalTime(),
                                 Notifications = new List<Notification> {
-                                    new Notification {
+                                    new Notification
+                                    {
                                         CostId = 1,
                                         DateWhenNotify = 30,
-                                        Comments = "test comment for notification"}
-                                } }
-                            },
+                                        Comments = "test comment for notification"
+                                    }
+                                }
+                            } },
                             Earnings = new List<Earning> { new Earning
                             {
                                 UserId = 1,
@@ -67,7 +65,8 @@ namespace FamilyCostKeeping.Data
                             } }
                         }
                     };
-                foreach(User u in users)
+                
+                foreach (User u in users)
                 {
                     context.Users.Add(u);
                 }

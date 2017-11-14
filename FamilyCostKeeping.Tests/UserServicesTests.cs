@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using FamilyCostKeeping.Services;
 using System.Linq.Expressions;
 using FamilyCostKeeping.Models.Internal;
+using FamilyCostKeeping.Models.ViewModels;
+using System.Linq;
 
 namespace FamilyCostKeeping.Tests
 {
@@ -141,8 +143,20 @@ namespace FamilyCostKeeping.Tests
                                     new User
                                     {
                                          UserId = 1,
+                                         FirstName = "FName",
+                                         LastName = "LName",
+                                         Mail = "a@a.a",
+                                         Password = "jjj",
                                          PreferredCurrency = Currency.USD,
-                                         CurrentBalance = 389.44
+                                         Categories = new List<Category>
+                                            {
+                                                new Category
+                                                {
+                                                    Name = "CName",
+                                                    Description = "CDescr.",
+                                                    UserId = 1
+                                                }
+                                            }
                                     }
                                 }
                 );
@@ -152,24 +166,21 @@ namespace FamilyCostKeeping.Tests
                                         new TimePeriodsSetting
                                         {
                                             UserId = 1,
-                                            MonthStartDay = 15,
+                                            MonthStartDay = 1,
                                             IsWeekendsEscapedInMonthlyRefreshing = true
                                         }
                                     }
                 );
-
-            Mock<IClock> clockMock = new Mock<IClock>();
-            clockMock.Setup(c => c.UtcNow).Returns(new DateTime(2017, 11, 12, 0, 0, 1));
-
-            IUserServices userServices = new UserServices(unitOfWorkMock.Object, clockMock.Object);
-
+            
+            IUserServices userServices = new UserServices(unitOfWorkMock.Object);
+            
             //Action
-            var result = userServices.GetGeneralUserInfo(1);
+            var result = userServices.GetSettings(1);
 
             //Assert
-            Assert.Equal(389.44, result.Balance);
-            Assert.Equal(Currency.USD, result.PreferredCurrency);
-            Assert.Equal(3, result.DaysOfCurrentMonthLeft);
+            Assert.Equal("FName", result.FirstName);
+            Assert.Equal("CName", result.Categories.First().Name);
+            Assert.Equal(1, result.MonthStartDay);
         }
         #endregion
 

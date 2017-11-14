@@ -29,18 +29,16 @@ namespace FamilyCostKeeping.Services
             _unitOfWork = unitOfWork;
             _clock = clock;
         }
-
-        
+                
         public double GetCurrentBalance (int userId) => 
             GetUser(userId).CurrentBalance;
 
         public int GetDaysOfCurrentMonthLeft(int userId)
         {
+            TimePeriodsSetting timePeriodsSetting = GetTimePeriodsSetting(userId);
             RemainingDaysParametersBunch parametersBunch = new RemainingDaysParametersBunch(_clock);
-            parametersBunch.MonthStartDayOriginal = _unitOfWork.TimePeriodsSettingRepository
-                                                   .Find(s => s.UserId == userId)
-                                                   .FirstOrDefault()
-                                                   .MonthStartDay;
+
+            parametersBunch.MonthStartDayOriginal = timePeriodsSetting.MonthStartDay;
 
             parametersBunch.ValidMonthStartDayThisMonth = GetValidMonthStartDay
                                                             (parametersBunch.MonthStartDayOriginal,
@@ -53,13 +51,8 @@ namespace FamilyCostKeeping.Services
 
             CountRemainingDays(parametersBunch);
             
-            if (_unitOfWork.TimePeriodsSettingRepository
-                .Find(s => s.UserId == userId)
-                .FirstOrDefault()
-                .IsWeekendsEscapedInMonthlyRefreshing)
-            {
-                ConsiderWeekends(parametersBunch);
-            }
+            if (timePeriodsSetting.IsWeekendsEscapedInMonthlyRefreshing)            
+                ConsiderWeekends(parametersBunch);            
 
             return parametersBunch.RemainingDays;
         }
@@ -116,14 +109,15 @@ namespace FamilyCostKeeping.Services
             ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, "login"));
 
             if (authenticationRequest.RememberCredentials)
+            {
                 await httpContext.SignInAsync
                                     (principal, new AuthenticationProperties
                                     {
                                         IsPersistent = true,
                                         ExpiresUtc = DateTimeOffset.Now.AddDays(90)
                                     });
-            else
-                await httpContext.SignInAsync(principal);
+            }
+            else await httpContext.SignInAsync(principal);
 
         }
 
@@ -141,10 +135,7 @@ namespace FamilyCostKeeping.Services
         public SettingsViewModel GetSettings(int userId)
         {
             User user = GetUser(userId);
-            TimePeriodsSetting timePeriodsSetting = _unitOfWork
-                .TimePeriodsSettingRepository
-                .Find(u => u.UserId == userId)
-                .FirstOrDefault();
+            TimePeriodsSetting timePeriodsSetting = GetTimePeriodsSetting(userId);
 
             return new SettingsViewModel
             {
@@ -166,51 +157,74 @@ namespace FamilyCostKeeping.Services
             .Find(u => u.UserId == userId)
             .FirstOrDefault();
 
+        private TimePeriodsSetting GetTimePeriodsSetting (int userId) =>
+            _unitOfWork
+            .TimePeriodsSettingRepository
+            .Find(u => u.UserId == userId)
+            .FirstOrDefault();
+
         private int GetValidMonthStartDay(int monthStartDay, int month, int year)
         {
             int validMonthStartDay = monthStartDay;
             int daysInCurrentMonth = DateTime.DaysInMonth(year, month);
 
             if (monthStartDay > daysInCurrentMonth)
-            {
-                validMonthStartDay = daysInCurrentMonth;
-            }
+                validMonthStartDay = daysInCurrentMonth;            
 
             return validMonthStartDay;
         }
 
         private void CountRemainingDays(RemainingDaysParametersBunch parametersBunch)
         {
-            if (parametersBunch.CurrentUtcDateTime.Day >= parametersBunch.ValidMonthStartDayThisMonth)
+            if (parametersBunch.CurrentUtcDateTime.Day
+                >= parametersBunch.ValidMonthStartDayThisMonth)
             {
-                parametersBunch.RemainingDays = (DateTime.Parse($"{parametersBunch.MonthLaterFromCurrentUtcDateTime.Year}-{parametersBunch.MonthLaterFromCurrentUtcDateTime.Month}-{parametersBunch.ValidMonthStartDayNextMonth}")
-                            - parametersBunch.CurrentUtcDateTime).Days + 1;
+                parametersBunch.RemainingDays = 
+                    (DateTime.Parse($"{parametersBunch.MonthLaterFromCurrentUtcDateTime.Year}-{parametersBunch.MonthLaterFromCurrentUtcDateTime.Month}-{parametersBunch.ValidMonthStartDayNextMonth}")
+                            - parametersBunch.CurrentUtcDateTime)
+                            .Days + 1;
             }
             else
             {
-                parametersBunch.RemainingDays = (DateTime.Parse($"{parametersBunch.CurrentUtcDateTime.Year}-{parametersBunch.CurrentUtcDateTime.Month}-{parametersBunch.ValidMonthStartDayThisMonth}")
-                            - parametersBunch.CurrentUtcDateTime).Days + 1;
+                parametersBunch.RemainingDays = 
+                    (DateTime.Parse($"{parametersBunch.CurrentUtcDateTime.Year}-{parametersBunch.CurrentUtcDateTime.Month}-{parametersBunch.ValidMonthStartDayThisMonth}")
+                            - parametersBunch.CurrentUtcDateTime)
+                            .Days + 1;
             }
         }
 
         private void ConsiderWeekends(RemainingDaysParametersBunch parametersBunch)
         {
-            DayOfWeek dayOfWeekCurrentMonth = new DateTime(parametersBunch.CurrentUtcDateTime.Year, parametersBunch.CurrentUtcDateTime.Month, parametersBunch.ValidMonthStartDayThisMonth)
-                                               .DayOfWeek;
-            DayOfWeek dayOfWeekNextMonth = new DateTime(parametersBunch.MonthLaterFromCurrentUtcDateTime.Year, parametersBunch.MonthLaterFromCurrentUtcDateTime.Month, parametersBunch.ValidMonthStartDayNextMonth)
-                                               .DayOfWeek;
+            DayOfWeek dayOfWeekCurrentMonth = new DateTime
+                                                (parametersBunch.CurrentUtcDateTime.Year,
+                                                parametersBunch.CurrentUtcDateTime.Month, 
+                                                parametersBunch.ValidMonthStartDayThisMonth)
+                                                .DayOfWeek;
+            DayOfWeek dayOfWeekNextMonth = new DateTime
+                                                (parametersBunch.MonthLaterFromCurrentUtcDateTime.Year,
+                                                parametersBunch.MonthLaterFromCurrentUtcDateTime.Month,
+                                                parametersBunch.ValidMonthStartDayNextMonth)
+                                                .DayOfWeek;
 
-            if (parametersBunch.CurrentUtcDateTime.Day >= parametersBunch.ValidMonthStartDayThisMonth
+            if (parametersBunch.CurrentUtcDateTime.Day
+                >= parametersBunch.ValidMonthStartDayThisMonth
                 && (dayOfWeekNextMonth == DayOfWeek.Sunday || dayOfWeekNextMonth == DayOfWeek.Saturday))
             {
-                parametersBunch.RemainingDays = dayOfWeekNextMonth == DayOfWeek.Saturday ? parametersBunch.RemainingDays - 1 : parametersBunch.RemainingDays;
-                parametersBunch.RemainingDays = dayOfWeekNextMonth == DayOfWeek.Sunday ? parametersBunch.RemainingDays - 2 : parametersBunch.RemainingDays;
+                parametersBunch.RemainingDays = dayOfWeekNextMonth == DayOfWeek.Saturday ? 
+                    parametersBunch.RemainingDays - 1 : parametersBunch.RemainingDays;
+
+                parametersBunch.RemainingDays = dayOfWeekNextMonth == DayOfWeek.Sunday ? 
+                    parametersBunch.RemainingDays - 2 : parametersBunch.RemainingDays;
             }
-            else if (parametersBunch.CurrentUtcDateTime.Day < parametersBunch.ValidMonthStartDayThisMonth
+            else if (parametersBunch.CurrentUtcDateTime.Day
+                < parametersBunch.ValidMonthStartDayThisMonth
                 && (dayOfWeekCurrentMonth == DayOfWeek.Sunday || dayOfWeekCurrentMonth == DayOfWeek.Saturday))
             {
-                parametersBunch.RemainingDays = dayOfWeekCurrentMonth == DayOfWeek.Saturday ? parametersBunch.RemainingDays - 1 : parametersBunch.RemainingDays;
-                parametersBunch.RemainingDays = dayOfWeekCurrentMonth == DayOfWeek.Sunday ? parametersBunch.RemainingDays - 2 : parametersBunch.RemainingDays;
+                parametersBunch.RemainingDays = dayOfWeekCurrentMonth == DayOfWeek.Saturday ? 
+                    parametersBunch.RemainingDays - 1 : parametersBunch.RemainingDays;
+
+                parametersBunch.RemainingDays = dayOfWeekCurrentMonth == DayOfWeek.Sunday ? 
+                    parametersBunch.RemainingDays - 2 : parametersBunch.RemainingDays;
             }
         }
         #endregion
