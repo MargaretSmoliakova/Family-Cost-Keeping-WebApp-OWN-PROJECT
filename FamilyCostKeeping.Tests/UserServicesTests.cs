@@ -129,6 +129,48 @@ namespace FamilyCostKeeping.Tests
             Assert.Equal(Currency.USD, result.PreferredCurrency);
             Assert.Equal(3, result.DaysOfCurrentMonthLeft);
         }
+
+        [Fact]
+        public void Can_Get_Settings()
+        {
+            //Arrange
+            Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
+            unitOfWorkMock.Setup(m => m.UserRepository.Find(It.IsAny<Expression<Func<User, bool>>>()))
+                .Returns(new List<User>
+                                {
+                                    new User
+                                    {
+                                         UserId = 1,
+                                         PreferredCurrency = Currency.USD,
+                                         CurrentBalance = 389.44
+                                    }
+                                }
+                );
+            unitOfWorkMock.Setup(m => m.TimePeriodsSettingRepository.Find(It.IsAny<Expression<Func<TimePeriodsSetting, bool>>>()))
+                .Returns(new List<TimePeriodsSetting>
+                                    {
+                                        new TimePeriodsSetting
+                                        {
+                                            UserId = 1,
+                                            MonthStartDay = 15,
+                                            IsWeekendsEscapedInMonthlyRefreshing = true
+                                        }
+                                    }
+                );
+
+            Mock<IClock> clockMock = new Mock<IClock>();
+            clockMock.Setup(c => c.UtcNow).Returns(new DateTime(2017, 11, 12, 0, 0, 1));
+
+            IUserServices userServices = new UserServices(unitOfWorkMock.Object, clockMock.Object);
+
+            //Action
+            var result = userServices.GetGeneralUserInfo(1);
+
+            //Assert
+            Assert.Equal(389.44, result.Balance);
+            Assert.Equal(Currency.USD, result.PreferredCurrency);
+            Assert.Equal(3, result.DaysOfCurrentMonthLeft);
+        }
         #endregion
 
         #region Private

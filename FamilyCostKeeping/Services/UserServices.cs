@@ -140,9 +140,22 @@ namespace FamilyCostKeeping.Services
 
         public SettingsViewModel GetSettings(int userId)
         {
+            User user = GetUser(userId);
+            TimePeriodsSetting timePeriodsSetting = _unitOfWork
+                .TimePeriodsSettingRepository
+                .Find(u => u.UserId == userId)
+                .FirstOrDefault();
+
             return new SettingsViewModel
             {
-                
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Mail = user.Mail,
+                Password = user.Password,
+                PreferredCurrency = user.PreferredCurrency,
+                Categories = user.Categories,
+                MonthStartDay = timePeriodsSetting.MonthStartDay,
+                IsWeekendsEscapedInMonthlyRefreshing = timePeriodsSetting.IsWeekendsEscapedInMonthlyRefreshing
             };
         }
         #endregion
