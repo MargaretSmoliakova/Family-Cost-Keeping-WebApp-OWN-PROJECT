@@ -1,5 +1,6 @@
 FamilyCostKeeping (current state):
 
+- add Category relationships;
 - why my EF code first is not correct (regarding related objects)??????? or is it incorrect? how can I get related objects or do I need this;
 - get localTimeZone of the user;
 - add settings page with the current info about user and ability to change it;

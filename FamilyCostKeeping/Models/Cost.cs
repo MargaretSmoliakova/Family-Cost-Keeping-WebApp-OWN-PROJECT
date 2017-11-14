@@ -13,13 +13,11 @@ namespace FamilyCostKeeping.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CostId { get; set; }
         public bool IsMonthly { get; set; }
+        public int CategoryId { get; set; }
 
         public ICollection<Notification> Notifications { get; set; }
 
         public int UserId { get; set; }
-        public virtual User User { get; set; }
-
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public User User { get; set; }        
     }
 }
