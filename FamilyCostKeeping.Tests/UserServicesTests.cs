@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using FamilyCostKeeping.Models.Internal;
 using FamilyCostKeeping.Models.ViewModels;
 using System.Linq;
+using FamilyCostKeeping.Models.Requests;
 
 namespace FamilyCostKeeping.Tests
 {
@@ -181,6 +182,18 @@ namespace FamilyCostKeeping.Tests
             Assert.Equal("FName", result.FirstName);
             Assert.Equal("CName", result.Categories.First().Name);
             Assert.Equal(1, result.MonthStartDay);
+        }
+
+        [Fact]
+        public void Can_Create_Cookies()
+        {
+            // Arrange
+            AuthenticationRequest authRequest = new AuthenticationRequest
+            {
+                LogInName = "Test",
+                Password = "Test1",
+                RememberCredentials = true
+            }
         }
         #endregion
 

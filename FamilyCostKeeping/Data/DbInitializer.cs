@@ -19,8 +19,8 @@ namespace FamilyCostKeeping.Data
                         new User {
                             FirstName = "TestFirstName",
                             LastName = "TestLastName",
-                            LogInName = "TestLogInName",
-                            Password = "TestPassword",
+                            LogInName = "t",
+                            Password = "t",
                             CreatedDateTime = DateTime.Now.ToUniversalTime(),
                             Mail = "testmail@testmail.com",
                             CurrentBalance = 506.55,
