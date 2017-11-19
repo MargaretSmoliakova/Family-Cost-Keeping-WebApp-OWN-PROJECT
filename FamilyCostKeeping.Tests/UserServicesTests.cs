@@ -10,6 +10,7 @@ using FamilyCostKeeping.Models.Internal;
 using FamilyCostKeeping.Models.ViewModels;
 using System.Linq;
 using FamilyCostKeeping.Models.Requests;
+using Microsoft.AspNetCore.Http;
 
 namespace FamilyCostKeeping.Tests
 {
@@ -185,15 +186,36 @@ namespace FamilyCostKeeping.Tests
         }
 
         [Fact]
-        public void Can_Create_Cookies()
+        public void Can_Create_Permanent_Cookies()
         {
             // Arrange
             AuthenticationRequest authRequest = new AuthenticationRequest
-            {
-                LogInName = "Test",
-                Password = "Test1",
-                RememberCredentials = true
-            }
+                                                {                                                    
+                                                    RememberCredentials = true
+                                                };
+
+            Mock<HttpContext> httpContext = new Mock<HttpContext>();
+            httpContext.SetupAllProperties();
+
+            Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
+            unitOfWorkMock.Setup(m => m.UserRepository
+                                        .Find(It.IsAny<Expression<Func<User, bool>>>())
+                                        .FirstOrDefault().UserId)
+                           .Returns(1);
+
+            IUserServices userServices = new UserServices(unitOfWorkMock.Object);
+
+            // Act
+            userServices.CreateCookies(authRequest, httpContext.Object);
+
+            //Asssert
+            Assert.True(httpContext.Object.Response.Cookies.Headers.HeaderSetCookie.Count == 1);
+        }
+
+        [Fact]
+        public void Can_Create_Session_Cookies()
+        {
+
         }
         #endregion
 
