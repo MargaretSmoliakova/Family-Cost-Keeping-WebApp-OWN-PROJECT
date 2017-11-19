@@ -190,7 +190,9 @@ namespace FamilyCostKeeping.Tests
         {
             // Arrange
             AuthenticationRequest authRequest = new AuthenticationRequest
-                                                {                                                    
+                                                {
+                                                    LogInName = "t",
+                                                    Password = "t",
                                                     RememberCredentials = true
                                                 };
 
@@ -199,17 +201,27 @@ namespace FamilyCostKeeping.Tests
 
             Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
             unitOfWorkMock.Setup(m => m.UserRepository
-                                        .Find(It.IsAny<Expression<Func<User, bool>>>())
-                                        .FirstOrDefault().UserId)
-                           .Returns(1);
+                                      .Find(It.IsAny<Expression<Func<User, bool>>>()))
+                           .Returns(new List<User>
+                                {
+                                    new User
+                                    {
+                                         UserId = 1                                         
+                                    }
+                                }
+                );
 
             IUserServices userServices = new UserServices(unitOfWorkMock.Object);
 
             // Act
             userServices.CreateCookies(authRequest, httpContext.Object);
+            int.TryParse(
+               httpContext.Object.User.Claims
+                .FirstOrDefault(x => x.Type == "userId")
+                .Value, out int userId);
 
             //Asssert
-            Assert.True(httpContext.Object.Response.Cookies.Headers.HeaderSetCookie.Count == 1);
+            Assert.True(userId == 1);
         }
 
         [Fact]
