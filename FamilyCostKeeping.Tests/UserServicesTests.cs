@@ -195,9 +195,9 @@ namespace FamilyCostKeeping.Tests
                                                     Password = "t",
                                                     RememberCredentials = true
                                                 };
-
+            Mock<HttpRequest> httpRequest = new Mock<HttpRequest>();
             Mock<HttpContext> httpContext = new Mock<HttpContext>();
-            httpContext.SetupAllProperties();
+            httpContext.Setup(m => m.Request).Returns(httpRequest.Object);
 
             Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
             unitOfWorkMock.Setup(m => m.UserRepository
@@ -206,7 +206,9 @@ namespace FamilyCostKeeping.Tests
                                 {
                                     new User
                                     {
-                                         UserId = 1                                         
+                                         UserId = 1,
+                                         LogInName = "t",
+                                         Password = "t"
                                     }
                                 }
                 );
