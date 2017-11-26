@@ -18,6 +18,7 @@ namespace FamilyCostKeeping.Data
                     {
                         new User {
                             FirstName = "TestFirstName",
+                            Guid = Guid.NewGuid().ToString(),
                             LastName = "TestLastName",
                             LogInName = "t",
                             Password = "t",

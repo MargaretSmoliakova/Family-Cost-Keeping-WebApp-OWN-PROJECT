@@ -66,6 +66,17 @@ namespace FamilyCostKeeping.Services
                        && u.Password.Equals(authenticationRequest.Password))
             .Any();
 
+        public int GetUserIdFromCookies(HttpContext httpContext)
+        {
+            string userGuid = httpContext.User.Claims
+                    .FirstOrDefault(x => x.Type == "userGuid").Value;
+
+            return _unitOfWork.UserRepository
+                .Find(u => u.Guid == userGuid)
+                .FirstOrDefault()
+                .UserId;
+        }
+
         public void CreateUser (SignupRequest signupRequest)
         {
             User newUser = new User
@@ -75,7 +86,8 @@ namespace FamilyCostKeeping.Services
                 Mail = signupRequest.Mail,
                 LogInName = signupRequest.LogInName,
                 Password = signupRequest.Password,
-                CreatedDateTime = _clock.UtcNow
+                CreatedDateTime = _clock.UtcNow,
+                Guid = Guid.NewGuid().ToString()
             };
 
             _unitOfWork.UserRepository
@@ -95,15 +107,15 @@ namespace FamilyCostKeeping.Services
         public async Task CreateCookies 
             (AuthenticationRequest authenticationRequest, HttpContext httpContext)
         {
-            int userId = _unitOfWork.UserRepository
+            string userGuid = _unitOfWork.UserRepository
                             .Find(u => u.LogInName.Equals(authenticationRequest.LogInName)
                                        && u.Password.Equals(authenticationRequest.Password))
                             .FirstOrDefault()
-                            .UserId;
+                            .Guid;
 
             List<Claim> claims = new List<Claim>
                             {
-                                new Claim("userId", userId.ToString())
+                                new Claim("userGuid", userGuid)
                             };
 
             ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, "login"));
@@ -150,6 +162,8 @@ namespace FamilyCostKeeping.Services
             };
         }
         #endregion
+
+
 
         #region Private
         private User GetUser (int userId) =>

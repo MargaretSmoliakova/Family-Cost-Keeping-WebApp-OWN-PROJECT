@@ -185,52 +185,6 @@ namespace FamilyCostKeeping.Tests
             Assert.Equal(1, result.MonthStartDay);
         }
 
-        [Fact]
-        public void Can_Create_Permanent_Cookies()
-        {
-            // Arrange
-            AuthenticationRequest authRequest = new AuthenticationRequest
-                                                {
-                                                    LogInName = "t",
-                                                    Password = "t",
-                                                    RememberCredentials = true
-                                                };
-            Mock<HttpRequest> httpRequest = new Mock<HttpRequest>();
-            Mock<HttpContext> httpContext = new Mock<HttpContext>();
-            httpContext.Setup(m => m.Request).Returns(httpRequest.Object);
-
-            Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(m => m.UserRepository
-                                      .Find(It.IsAny<Expression<Func<User, bool>>>()))
-                           .Returns(new List<User>
-                                {
-                                    new User
-                                    {
-                                         UserId = 1,
-                                         LogInName = "t",
-                                         Password = "t"
-                                    }
-                                }
-                );
-
-            IUserServices userServices = new UserServices(unitOfWorkMock.Object);
-
-            // Act
-            userServices.CreateCookies(authRequest, httpContext.Object);
-            int.TryParse(
-               httpContext.Object.User.Claims
-                .FirstOrDefault(x => x.Type == "userId")
-                .Value, out int userId);
-
-            //Asssert
-            Assert.True(userId == 1);
-        }
-
-        [Fact]
-        public void Can_Create_Session_Cookies()
-        {
-
-        }
         #endregion
 
         #region Private

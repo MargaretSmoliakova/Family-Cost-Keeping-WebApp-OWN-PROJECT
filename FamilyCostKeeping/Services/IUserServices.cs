@@ -17,6 +17,7 @@ namespace FamilyCostKeeping.Services
         double GetCurrentBalance (int userId);
         Currency GetPreferredCurrency (int userId);
         bool IsAuthenticated (AuthenticationRequest authenticationRequest);
+        int GetUserIdFromCookies(HttpContext httpContext);
         void CreateUser (SignupRequest signupRequest);
         Task CreateCookies (AuthenticationRequest authenticationRequest, HttpContext httpContext);
         GeneralUserInfoViewModel GetGeneralUserInfo(int userId);

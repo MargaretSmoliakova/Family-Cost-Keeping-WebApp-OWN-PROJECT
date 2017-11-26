@@ -13,27 +13,15 @@ namespace FamilyCostKeeping.Controllers
         [HttpGet]
         public IActionResult Index([FromServices] IUserServices userServices)
         {
-            int userId = GetUserIdFromCookies();
+            int userId = userServices.GetUserIdFromCookies(HttpContext);
 
             return View(userServices.GetSettings(userId));
         }
 
         [HttpPost]
-        public IActionResult Index(int i)
+        public IActionResult Index()
         {            
             return View();
-        }
-        #endregion
-
-        #region Private
-        private int GetUserIdFromCookies()
-        {
-            int.TryParse(
-                HttpContext.User.Claims
-                .FirstOrDefault(x => x.Type == "userId")
-                .Value, out int userId);
-
-            return userId;
         }
         #endregion
     }

@@ -12,6 +12,7 @@ namespace FamilyCostKeeping.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
+        public string Guid { get; set; }
         public string LogInName { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }

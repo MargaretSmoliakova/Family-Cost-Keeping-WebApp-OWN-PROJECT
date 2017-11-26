@@ -20,7 +20,7 @@ namespace FamilyCostKeeping.Controllers
         #region Actions
         public IActionResult Index([FromServices] IUserServices userServices)
         {
-            int userId = GetUserIdFromCookies();           
+            int userId = userServices.GetUserIdFromCookies(HttpContext);           
 
             return View(userServices.GetGeneralUserInfo(userId));
         }
@@ -30,19 +30,6 @@ namespace FamilyCostKeeping.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Index", "Authentication");
-        }
-        #endregion
-
-
-        #region Private
-        private int GetUserIdFromCookies()
-        {
-            int.TryParse(
-                HttpContext.User.Claims
-                .FirstOrDefault(x => x.Type == "userId")
-                .Value, out int userId);
-
-            return userId;
         }
         #endregion
     }
