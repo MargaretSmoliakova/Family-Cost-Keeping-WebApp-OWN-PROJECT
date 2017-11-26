@@ -1,12 +1,19 @@
 FamilyCostKeeping (current state):
 
 - add settings page with the current info about user and ability to change it;
+- create tests for controllers with "return View(object)" to test object;
 - create connection between models and view's components (main page);
-- why my EF code first is not correct (regarding related objects)??????? or is it incorrect? how can I get related objects or do I need this;
 - create functionality for the binded components and services;
+- think what tests I need (xunit tests);
+- think whether I need all these repos and services;
+- do I need local time zone in the DB or this is needed for view purpose only;
 
-- improve cookies settings, espesially protection, and think about cookies access (how to protect info - create and save encrypted key for every user into cookie and save it into db) so change userId info access from cookie in the program;
 - correct outgoing URL from [Authorize] attribute to the Authentication controller (bad URL: .../Authentication?ReturnUrl=%2F vs normal URL: .../Authentication);
+- improve cookies settings, espesially protection, and think about cookies access (how to protect info - create and save encrypted key for every user into cookie and save it into db) so change userId info access from cookie in the program;
+- encrypt passwords and save encrypted into DB and think about safe;
 
 - add main general page for unauthenticated users (general app info);
 - add admin functions (with authentication);
+- add friends users for the current user;
+
+- create normal UI;

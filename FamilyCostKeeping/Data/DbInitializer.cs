@@ -14,17 +14,14 @@ namespace FamilyCostKeeping.Data
 
             if (!context.Users.Any())
             {
-                var category = new Category { Name = "TestCategory", Description = "test category for testing" };
-                context.Categories.Add(category);
-                context.SaveChanges();
-
                 var users = new User[]
                     {
                         new User {
                             FirstName = "TestFirstName",
+                            Guid = Guid.NewGuid().ToString(),
                             LastName = "TestLastName",
-                            LogInName = "TestLogInName",
-                            Password = "TestPassword",
+                            LogInName = "t",
+                            Password = "t",
                             CreatedDateTime = DateTime.Now.ToUniversalTime(),
                             Mail = "testmail@testmail.com",
                             CurrentBalance = 506.55,
@@ -58,14 +55,20 @@ namespace FamilyCostKeeping.Data
                                 CategoryId = 1,
                                 Comment = "test comment for earning",
                                 CreatedDateTime = DateTime.Now.ToLocalTime()
+                            } },
+                            Categories = new List<Category> { new Category
+                            {
+                                Name = "TestCategory",
+                                Description = "test category for testing",
+                                UserId = 1
                             } }
                         }
                     };
-                foreach(User u in users)
+                foreach (User u in users)
                 {
                     context.Users.Add(u);
                 }
-                context.SaveChanges();
+                context.SaveChanges();               
             }
         }
     }

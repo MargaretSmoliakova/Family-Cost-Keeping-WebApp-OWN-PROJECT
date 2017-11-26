@@ -12,6 +12,7 @@ namespace FamilyCostKeeping.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
+        public string Guid { get; set; }
         public string LogInName { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
@@ -21,8 +22,9 @@ namespace FamilyCostKeeping.Models
         public double CurrentBalance { get; set; }
         public Currency PreferredCurrency { get; set; }
 
-        public virtual ICollection<Earning> Earnings { get; set; }
-        public virtual ICollection<Cost> Costs { get; set; }
+        public ICollection<Earning> Earnings { get; set; }
+        public ICollection<Cost> Costs { get; set; }
+        public ICollection<Category> Categories { get; set; }
 
         public TimePeriodsSetting TimePeriodsSetting { get; set; }
     }

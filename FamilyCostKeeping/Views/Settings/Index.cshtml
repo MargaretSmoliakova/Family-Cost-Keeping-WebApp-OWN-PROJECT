@@ -1,4 +1,5 @@
-﻿
+﻿@model SettingsViewModel
+
 @{
     Layout = null;
 }
@@ -16,19 +17,54 @@
     <link rel="stylesheet" href="~/css/AuthenticationValidationError.css" />
 </head>
 <body>
-    <div class="container">
-        <h2>Settings</h2>
-        <hr />
-        <form asp-action="Index" method="post">
-            <div class="form-group">
-                <label>Name:</label>
-                <input type="text" class="form-control" placeholder="Name">
-                <span class="text-danger"></span>
-            </div>            
-            <br />
-            <button type="submit" class="btn btn-danger">Save</button>
-            <hr />            
-        </form>
-    </div>
+<div class="container">
+    <h2>Settings</h2>
+    <a asp-controller="Home">Back to the Home page</a>
+    @if (TempData["saveSuccessMessage"] != null)
+    {
+        <div class="alert alert-success center-block text-center">@TempData["saveSuccessMessage"]</div>
+    }
+    <hr />
+    <form asp-action="Index" method="post">
+        <div class="form-group">
+            <label>Name:</label>
+            <input asp-for="FirstName" type="text" class="form-control" placeholder="Name">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Last Name:</label>
+            <input asp-for="LastName" type="text" class="form-control" placeholder="Last Name">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Mail:</label>
+            <input asp-for="Mail" type="text" class="form-control" placeholder="email">
+            <span asp-validation-for="Mail" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Preferred Currency:&nbsp;</label>
+            <select asp-for="PreferredCurrency" asp-items="Html.GetEnumSelectList<Currency>()"></select>
+            <span asp-validation-for="Mail" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Categories:&nbsp;</label>
+            <select asp-for="Categories" asp-items="(IEnumerable<SelectListItem>)@Model.Categories"></select>
+            <span asp-validation-for="Mail" class="text-danger"></span>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-danger">Save</button>
+        <hr />            
+    </form>
+</div>
 </body>
 </html>
+
+<!--
+Categories = user.Categories,
+MonthStartDay = timePeriodsSetting.MonthStartDay,
+IsWeekendsEscapedInMonthlyRefreshing = timePeriodsSetting.IsWeekendsEscapedInMonthlyRefreshing-->
