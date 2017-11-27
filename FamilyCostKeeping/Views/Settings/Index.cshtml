@@ -48,13 +48,54 @@
         </div>
         <div class="form-group">
             <label>Preferred Currency:&nbsp;</label>
-            <select asp-for="PreferredCurrency" asp-items="Html.GetEnumSelectList<Currency>()"></select>
-            <span asp-validation-for="Mail" class="text-danger"></span>
+            <select asp-for="PreferredCurrency" asp-items="Html.GetEnumSelectList<Currency>()"></select>            
         </div>
         <div class="form-group">
             <label>Categories:&nbsp;</label>
-            <select asp-for="Categories" asp-items="(IEnumerable<SelectListItem>)@Model.Categories"></select>
-            <span asp-validation-for="Mail" class="text-danger"></span>
+            <select asp-items="@Model.Categories.Select(c => new SelectListItem { Text = c.Name })"></select>
+            <button class="btn btn-default">Change</button>
+            <button class="btn btn-danger">Delete</button>
+            <button class="btn btn-success" >Add</button>            
+        </div>            
+        <div class="form-group">
+            <label>Start day:&nbsp;</label>
+            <select asp-for="MonthStartDay">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option> 
+                <option>4</option> 
+                <option>5</option> 
+                <option>6</option> 
+                <option>7</option> 
+                <option>8</option> 
+                <option>9</option> 
+                <option>10</option> 
+                <option>11</option> 
+                <option>12</option> 
+                <option>13</option> 
+                <option>14</option> 
+                <option>15</option> 
+                <option>16</option> 
+                <option>17</option> 
+                <option>18</option> 
+                <option>19</option> 
+                <option>20</option> 
+                <option>21</option> 
+                <option>22</option> 
+                <option>23</option> 
+                <option>24</option> 
+                <option>25</option> 
+                <option>26</option> 
+                <option>27</option> 
+                <option>28</option> 
+                <option>29</option> 
+                <option>30</option> 
+                <option>31</option> 
+            </select>
+        </div>
+        <div>
+            <label>Is weekends escaped when month starting:&nbsp;</label>
+            <input asp-for="IsWeekendsEscapedInMonthlyRefreshing" type="checkbox" checked="checked" />
         </div>
         <br />
         <button type="submit" class="btn btn-danger">Save</button>
@@ -65,6 +106,4 @@
 </html>
 
 <!--
-Categories = user.Categories,
-MonthStartDay = timePeriodsSetting.MonthStartDay,
 IsWeekendsEscapedInMonthlyRefreshing = timePeriodsSetting.IsWeekendsEscapedInMonthlyRefreshing-->

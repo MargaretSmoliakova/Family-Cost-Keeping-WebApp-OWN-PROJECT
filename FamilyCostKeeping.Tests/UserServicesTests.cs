@@ -149,16 +149,7 @@ namespace FamilyCostKeeping.Tests
                                          LastName = "LName",
                                          Mail = "a@a.a",
                                          Password = "jjj",
-                                         PreferredCurrency = Currency.USD,
-                                         Categories = new List<Category>
-                                            {
-                                                new Category
-                                                {
-                                                    Name = "CName",
-                                                    Description = "CDescr.",
-                                                    UserId = 1
-                                                }
-                                            }
+                                         PreferredCurrency = Currency.USD                                         
                                     }
                                 }
                 );
@@ -172,6 +163,17 @@ namespace FamilyCostKeeping.Tests
                                             IsWeekendsEscapedInMonthlyRefreshing = true
                                         }
                                     }
+                );
+            unitOfWorkMock.Setup(m => m.CategoryRepository.Find(It.IsAny<Expression<Func<Category, bool>>>()))
+                .Returns(new List<Category>
+                                            {
+                                                new Category
+                                                {
+                                                    Name = "CName",
+                                                    Description = "CDescr.",
+                                                    UserId = 1
+                                                }
+                                            }
                 );
             
             IUserServices userServices = new UserServices(unitOfWorkMock.Object);

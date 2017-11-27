@@ -148,6 +148,8 @@ namespace FamilyCostKeeping.Services
         {
             User user = GetUser(userId);
             TimePeriodsSetting timePeriodsSetting = GetTimePeriodsSetting(userId);
+            IEnumerable<Category> categories = _unitOfWork.CategoryRepository
+                .Find(c => c.UserId == userId);
 
             return new SettingsViewModel
             {
@@ -156,7 +158,7 @@ namespace FamilyCostKeeping.Services
                 Mail = user.Mail,
                 Password = user.Password,
                 PreferredCurrency = user.PreferredCurrency,
-                Categories = user.Categories,
+                Categories = categories,
                 MonthStartDay = timePeriodsSetting.MonthStartDay,
                 IsWeekendsEscapedInMonthlyRefreshing = timePeriodsSetting.IsWeekendsEscapedInMonthlyRefreshing
             };

@@ -19,4 +19,3 @@ D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\obj\Debug\netcoreapp2.0
 D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\obj\Debug\netcoreapp2.0\FamilyCostKeeping.AssemblyInfo.cs
 D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\obj\Debug\netcoreapp2.0\FamilyCostKeeping.dll
 D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\obj\Debug\netcoreapp2.0\FamilyCostKeeping.pdb
-D:\MyProjects\FamilyCostKeeping\WebApp\FamilyCostKeeping\obj\Debug\netcoreapp2.0\FamilyCostKeeping.csprojResolveAssemblyReference.cache

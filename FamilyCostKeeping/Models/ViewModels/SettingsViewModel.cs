@@ -14,6 +14,6 @@ namespace FamilyCostKeeping.Models.ViewModels
         public Currency PreferredCurrency { get; set; }
         public int MonthStartDay { get; set; }
         public bool IsWeekendsEscapedInMonthlyRefreshing { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
+        public virtual IEnumerable<Category> Categories { get; set; }
     }
 }

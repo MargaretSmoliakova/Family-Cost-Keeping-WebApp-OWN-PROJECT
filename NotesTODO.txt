@@ -3,3 +3,9 @@ FamilyCostKeeping (keeping ideas):
 - Logging section in appsettings.json (what is a full object and what is LogLevel)
 - TODO .gitignore
 - why Dispose pattern is necessary
+
+- add main general page for unauthenticated users (general app info);
+- add admin functions (with authentication);
+- add friends users for the current user;
+
+- create normal UI;
